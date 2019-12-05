@@ -30,43 +30,38 @@ function populateGeneralInformation(form)
   
   var body = DocumentApp.getActiveDocument().getBody();
   var footer = DocumentApp.getActiveDocument().getFooter();
-  
   for (i=0; i<marker.length; i++)
   {
     if (fieldName[i] != "")
     {
       body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document, second argument is the matching text field on the sidebar.
-      footer.replaceText(marker[i], fieldName[i]); // TO DO: The footer text isn't being replaced for some reason.
+      //footer.replaceText(marker[i], fieldName[i]); // TO DO: The footer text isn't being replaced for some reason.
+      DocumentApp.getUi().alert(marker[i],footer[i]);
     }
   }
 }
 
-function addNewTest(form)
-{
+function addNewTest(form) {
   var selectedTest = form.tests;
-  switch (selectedTest)
-  {
+  switch (selectedTest) {
     case "thermalCycle":
-        appendTest('https://docs.google.com/document/d/1WZLUd_iRxE5uwvMsFIBV-DMvpGlWa8-tbdAg0QIYTo0/edit');
-        break;
+      appendTest('https://docs.google.com/document/d/1WZLUd_iRxE5uwvMsFIBV-DMvpGlWa8-tbdAg0QIYTo0/edit');
+      break;
     case "chemicalExposure":
-        appendTest('https://docs.google.com/document/d/1Tkp-byLQ9MUcBLqyPPTP568x8rad4QcgQ9cEkV1CFk8/edit');
-        break;
+      appendTest('https://docs.google.com/document/d/1Tkp-byLQ9MUcBLqyPPTP568x8rad4QcgQ9cEkV1CFk8/edit');
+      break;
   }
 }
 
-function appendTest(testID)
-{
+function appendTest(testID) {
   var thisDoc = DocumentApp.getActiveDocument();
   var thisBody = thisDoc.getBody();
   var templateDoc = DocumentApp.openByUrl(testID); // Pass in id of doc to be used as a template.
-  
+
   var templateBody = templateDoc.getBody();
 
-  for (var i=0; i<templateBody.getNumChildren(); i++)
-  { // run through the elements of the template doc's Body.
-    switch (templateBody.getChild(i).getType())
-    { // Deal with the various types of Elements we will encounter and append.
+  for (var i = 0; i < templateBody.getNumChildren(); i++) { // run through the elements of the template doc's Body.
+    switch (templateBody.getChild(i).getType()) { // Deal with the various types of Elements we will encounter and append.
       case DocumentApp.ElementType.PARAGRAPH:
         thisBody.appendParagraph(templateBody.getChild(i).copy());
         break;
@@ -78,5 +73,5 @@ function appendTest(testID)
         break;
     }
   }
-  return thisDoc; 
+  return thisDoc;
 }
