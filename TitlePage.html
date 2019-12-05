@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+
+<style>
+body {
+padding-left: 15px;
+}
+</style>
+
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+  <form id="generalInformation">
+    <p>Type a name for your test plan:</p>
+    <input type="text" name="testPlanName" value="" />
+    <p>What is your first and last name?</p>
+    <input type="text" name="fullName" value="" />
+    <p>Type the date (MM/DD/YY):</p>
+    <input type="text" name="date" value="" />
+    <p>Type the Jira ticket #:</p>
+    <input type="text" name="jiraTicketNumber" value="" />
+    <p>Type the part name:</p>
+    <input type="text" name="partName" value="" />
+    <p>Type the part number:</p>
+    <input type="text" name="partNumber" value="" />
+        <p>Type the project name:</p>
+    <input type="text" name="projectName" value="" />
+    
+    <input type="button" class="action" onclick="formSubmit()" value="Submit" /> 
+   
+  </form>
+  </body>
+  <script type="text/javascript">
+  function formSubmit() {
+  google.script.run.populateGeneralInformation(document.forms[0]); // I believe the argument uses the first form in the HTML.
+   }
+  </script>
+</html>

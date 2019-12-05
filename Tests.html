@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+
+<style>
+body {
+padding-left: 15px;
+}
+</style>
+
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+  <form id="generalInformation">
+    <p>Select the desired test from the drop-down:</p>
+    <select name="tests">
+      <option value="chemicalExposure">Chemical Exposure</option>
+      <option value="thermalCycle">Thermal Cycle</option>
+   </select>
+  </form>
+    <input type="button" class="action" onclick="formSubmit()" value="Submit" /> 
+  </body>
+  
+  <script type="text/javascript">
+  function formSubmit() {
+  google.script.run.addNewTest(document.forms[0]); // I believe the argument uses the first form in the HTML.
+   }
+  </script>
+</html>
