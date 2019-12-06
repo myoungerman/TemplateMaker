@@ -98,6 +98,8 @@ function appendTest(testID) {
       case DocumentApp.ElementType.TABLE:
         thisBody.appendTable(templateBody.getChild(i).copy());
         break;
+      case DocumentApp.ElementType.INLINE_IMAGE:
+        thisBody.appendImage(templateBody.getChild(i).copy());
     }
   }
   return thisDoc;
