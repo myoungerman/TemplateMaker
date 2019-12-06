@@ -5,6 +5,18 @@
 body {
 padding-left: 15px;
 }
+.action {
+margin-top: 10px;
+}
+.testInfoButton {
+  display: none;
+}
+#tcVariables {
+  display: none;
+}
+.toggleForm {
+  display: none;
+}
 </style>
 
 <html>
@@ -16,24 +28,97 @@ padding-left: 15px;
     <p>Select the desired test from the drop-down:</p>
     <select name="tests">
       <option value="chemicalExposure">Chemical Exposure</option>
-      <option value="coldSoak">Cold Soak</option>
-      <option value="coldStorage">Cold Storage</option>
+      <option value="coldSoak">Cold Soak</option> 
+      <option value="coldStorage">Cold Storage</option> 
       <option value="enduranceVibration">Endurance (Survivability) Vibration</option>
       <option value="functionalVibration">Functional (Operational) Vibration</option>
-      <option value="hotSoak">Hot Soak</option>
-      <option value="hotStorage">Hot Storage</option>
+      <option value="hotSoak">Hot Soak</option> 
+      <option value="hotStorage">Hot Storage</option> 
       <option value="istaDrop">ISTA Drop</option>
-      <option value="thermalCycle">Thermal Cycle</option>
-      <option value="thermalShock">Thermal Shock</option>
+      <option value="thermalCycle">Thermal Cycle</option> 
+      <option value="thermalShock">Thermal Shock</option> 
       <option value="transitDrop">Transit Drop</option>
    </select>
   </form>
-    <input type="button" class="action" onclick="formSubmit()" value="Submit" /> 
+    <input type="button" class="action" onclick="formSubmit()" value="Add test" />
+<!--These are prompts for test specific information-->
+  <form id="coldSoakVariables" class="toggleForm"> 
+    <p>Tell me more about this cold soak test:</p>
+    <p>What's the dwell temperature?</p>
+    <input type="text" name="dwellTemp" value="">
+    <p>How long is the dwell time in hours?</p>
+    <input type="text" name="dwellTime" value="">
+    <p>What's the minimum voltage?</p>
+    <input type="text" name="minVoltage" value="">
+    <p>What's the maximum voltage?</p>
+    <input type="text" name="maxVoltage" value="">
+  </form>
+  <form id="hotSoakVariables" class="toggleForm"> 
+    <p>Tell me more about this hot soak test:</p>
+    <p>What's the dwell temperature?</p>
+    <input type="text" name="dwellTemp" value="">
+    <p>How long is the dwell time in hours?</p>
+    <input type="text" name="dwellTime" value="">
+    <p>What's the minimum voltage?</p>
+    <input type="text" name="minVoltage" value="">
+    <p>What's the maximum voltage?</p>
+    <input type="text" name="maxVoltage" value="">
+    <p>How long will it take in hours for the DUT to achieve steady state temperatures?</p>
+    <input type="text" name="steadyTime" value="">
+    <p>What's the voltage range?</p>
+    <input type="text" name="voltageRange" value="">
+  </form>
+  <form id="hotStorageVariables" class="toggleForm"> 
+    <p>Tell me more about this hot storage test:</p>
+    <p>What's the dwell temperature?</p>
+    <input type="text" name="dwellTemp" value="">
+    <p>How long is the dwell time in hours?</p>
+    <input type="text" name="dwellTime" value="">
+  </form>
+  <form id="coldStorageVariables" class="toggleForm"> 
+    <p>Tell me more about this cold storage test:</p>
+    <p>What's the dwell temperature?</p>
+    <input type="text" name="dwellTemp" value="">
+    <p>How long is the dwell time in hours?</p>
+    <input type="text" name="dwellTime" value="">
+  </form>
+  <form id="thermalCycleVariables" class="toggleForm">
+    <p>Tell me more about this thermal cycling test:</p>
+    <p>What's the minimum temperature?</p>
+    <input type="text" name="minTemp" value="">
+    <p>What's the maximum temperature?</p>
+    <input type="text" name="maxTemp" value="">
+    <p>How long is the dwell time in hours? (Look at the table in the overview.)</p>
+    <input type="text" name="dwellTime" value="">
+    <p>How many cycles are there?</p>
+    <input type="text" name="cycles" value=""> 
+  </form>
+  <form id="thermalShockVariables" class="toggleForm">
+    <p>Tell me more about this thermal shock test:</p>
+    <p>What's the minimum temperature?</p>
+    <input type="text" name="minTemp" value="">
+    <p>What's the maximum temperature?</p>
+    <input type="text" name="maxTemp" value="">
+    <p>How long is the dwell time in hours?</p>
+    <input type="text" name="dwellTime" value="">
+    <p>How many shock events are there?</p>
+    <input type="text" name="shockEvents" value=""> 
+  </form>
+  <form id="enduranceVibrationVariables" class="toggleForm"> <!--TO DO: Add bulleted list that insert the different profiles -->
+    <p>Tell me more about this endurance (survivability) vibration test:</p>
+    <p>What vibration profile do you want to use?</p>
+    <!-- <input type="text" name="minTemp" value=""> -->
+  </form>
+  <input type="button" class="action testInfoButton" onclick="" value="Submit information for this test" /> 
   </body>
   
   <script type="text/javascript">
-  function formSubmit() {
-  google.script.run.addNewTest(document.forms[0]); // I believe the argument uses the first form in the HTML.
+  function formSubmit()
+  {
+    var temp = document.forms[0].tests.value + "Variables";
+    document.getElementById(temp).style.display = 'block';
+    document.querySelector('.testInfoButton').style.display = 'block';
+    google.script.run.addNewTest(document.forms[0]); // I believe the argument uses the first form in the HTML.
    }
   </script>
 </html>
