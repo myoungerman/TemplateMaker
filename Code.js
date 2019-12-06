@@ -22,7 +22,7 @@ function openTestDialog()
   DocumentApp.getUi() 
       .showSidebar(html); 
 }
-
+// Added this line in the Apps Script IDE to test clasp  pull
 function populateGeneralInformation(form)
 {
   var marker = ['{Test Plan Name}', '{Name}', '{Date}', '{Jira #}', '{Part name}', '{Part number}', '{Project name}'];
