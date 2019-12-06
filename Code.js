@@ -22,7 +22,7 @@ function openTestDialog()
   DocumentApp.getUi() 
       .showSidebar(html); 
 }
-// Added this line in the Apps Script IDE to test clasp  pull
+
 function populateGeneralInformation(form)
 {
   var marker = ['{Test Plan Name}', '{Name}', '{Date}', '{Jira #}', '{Part name}', '{Part number}', '{Project name}'];
@@ -50,6 +50,33 @@ function addNewTest(form) {
     case "chemicalExposure":
       appendTest('https://docs.google.com/document/d/1Tkp-byLQ9MUcBLqyPPTP568x8rad4QcgQ9cEkV1CFk8/edit');
       break;
+    case "coldSoak":
+      appendTest('https://docs.google.com/document/d/1dsrzhk2AqhhJIS47mieGwTNUmeFL2l9tB4xWlJkEJ5c/edit');
+      break;
+    case "hotSoak":
+      appendTest('https://docs.google.com/document/d/1_MVYJUq45_QSDnc6KTuh1Fkula_Lp8--K_u30FLsC5s/edit');
+      break;
+    case "coldStorage":
+      appendTest('https://docs.google.com/document/d/1OklUjVlpdcEsk4V0dS-NHteJxE2J1wpF7LWyfisrHrY/edit');
+      break;
+    case "hotStorage":
+      appendTest('https://docs.google.com/document/d/1oC4i4jLXp2xG-5yAV8D80vmewMoralx14RWngX4NM3w/edit');
+      break;
+    case "enduranceVibration":
+      appendTest('https://docs.google.com/document/d/1X4U0m360d6m9b4cdz9GGlRUsFOo53nmyHgL6bhqECSA/edit');
+      break;
+    case "functionalVibration":
+      appendTest('https://docs.google.com/document/d/1c9-j9FwiH_H53BMk_n4kJtOwY2Kz6cFEwomtkUup67E/edit');
+      break;
+    case "istaDrop":
+      appendTest('https://docs.google.com/document/d/1qL0A0cFN5nbHcxq0lR9vMlKd1ckAvrletOPKzMPJ0HI/edit');
+      break;
+    case "thermalShock":
+      appendTest('https://docs.google.com/document/d/1mHgwVLi0PeGopI6vLiTdW1vamGXcJ6Av-RTre7wxxec/edit');
+      break;
+    case "transitDrop":
+      appendTest('https://docs.google.com/document/d/1LvmJm6EVaJkp0D2ZrqGiyUD8oDWLpco9nU1ohgh6ems/edit');
+      break;        
   }
 }
 
