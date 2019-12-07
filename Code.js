@@ -46,6 +46,8 @@ function addNewTest(form) {
   switch (selectedTest) {
     case "thermalCycle":
       appendTest('https://docs.google.com/document/d/1WZLUd_iRxE5uwvMsFIBV-DMvpGlWa8-tbdAg0QIYTo0/edit');
+      // Get test specific information from the user.
+      var tcVariables = ['{tcMinTemp}', '{tcDwellTime}', '{tcMaxTemp}', '{tcCycles}'];
       break;
     case "chemicalExposure":
       appendTest('https://docs.google.com/document/d/1Tkp-byLQ9MUcBLqyPPTP568x8rad4QcgQ9cEkV1CFk8/edit');
@@ -98,7 +100,16 @@ function appendTest(testID) {
       case DocumentApp.ElementType.TABLE:
         thisBody.appendTable(templateBody.getChild(i).copy());
         break;
+      case DocumentApp.ElementType.INLINE_IMAGE:
+        thisBody.appendImage(templateBody.getChild(i).copy());
+        break;
+
     }
   }
   return thisDoc;
+}
+
+function getTestSpecificInformation()
+{
+
 }
