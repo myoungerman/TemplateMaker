@@ -25,8 +25,9 @@ function openTestDialog()
 
 function populateGeneralInformation(form)
 {
-  console.log(typeof form);
-  console.log("for general information, form is " + form);
+  console.log("form's type is " + typeof form); // Debugs as object
+  console.log("form.id returns: " + form.id); // Debugs as undefined.
+  console.log("for general information, form is " + form); // Debugs as [object Object]
   var marker = ['{Test Plan Name}', '{Name}', '{Date}', '{Jira #}', '{Part name}', '{Part number}', '{Project name}'];
   var fieldName = [form.testPlanName, form.fullName, form.date, form.jiraTicketNumber, form.partName, form.partNumber, form.projectName]; // I learned that arrays can store a class with a property, like form.fullName. Arrays can store any data type!
   
@@ -45,15 +46,19 @@ function populateGeneralInformation(form)
 
 function populateTestSpecificInformation(form)
 {
-  console.log(typeof form);
+  console.log("form's type is " + typeof form); // Debugs as object, which matches populateGeneralInformation.
+  console.log("form.id returns: " + form.id); // Debugs as undefined. How can we get the id of the form?
+  console.log("for test specific information, form is " + form); // Debugs as [object Object]. Tried setting a case to [object Object] but got an error.
+  console.log("dwellTemp is " + form.dwellTemp + " and dwell time is " + form.dwellTime); // Debugs the typed value!!! 
   var marker = [];
   var fieldName = [];
-  //var id = form.id;
-  console.log("form is " + form.id);
+  /* TO DO: Right now the argument (the id) is being passed as a string. This causes the if statement error because the string isn't an object, so it
+  can't access the object's text boxes. Get the form's id as an object, 
+  then we can make cases for each form id that accept objects instead of strings. Can we convert the argument from string to object after it is passed in? */
   switch (form)
   {
     case "thermalCycleVariables":
-      alert("thermal cycle has been hit.")
+      console.log("thermal cycle has been hit.")
       marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{cycles}'];
       fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.cycles]; 
       break;
