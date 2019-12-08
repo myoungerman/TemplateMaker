@@ -25,6 +25,8 @@ function openTestDialog()
 
 function populateGeneralInformation(form)
 {
+  console.log(typeof form);
+  console.log("for general information, form is " + form);
   var marker = ['{Test Plan Name}', '{Name}', '{Date}', '{Jira #}', '{Part name}', '{Part number}', '{Project name}'];
   var fieldName = [form.testPlanName, form.fullName, form.date, form.jiraTicketNumber, form.partName, form.partNumber, form.projectName]; // I learned that arrays can store a class with a property, like form.fullName. Arrays can store any data type!
   
@@ -41,13 +43,65 @@ function populateGeneralInformation(form)
   }
 }
 
-function addNewTest(form) {
+function populateTestSpecificInformation(form)
+{
+  console.log(typeof form);
+  var marker = [];
+  var fieldName = [];
+  //var id = form.id;
+  console.log("form is " + form.id);
+  switch (form)
+  {
+    case "thermalCycleVariables":
+      alert("thermal cycle has been hit.")
+      marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{cycles}'];
+      fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.cycles]; 
+      break;
+    case "coldSoakVariables":
+      marker = ['{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}'];
+      fieldName = [form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage];
+      break;
+    case "hotSoakVariables":
+      marker = ['{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}', '{steadyTime}', '{voltageRange}'];
+      fieldName = [form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage, form.steadyTime, form.voltageRange];
+      break;
+    case "coldStorageVariables":
+      marker = ['{dwellTemp}', '{dwellTime}'];
+      fieldName = [form.dwellTemp, form.dwellTime];
+      break;
+    case "hotStorageVariables":
+      marker = ['{dwellTemp}', '{dwellTime}'];
+      fieldName = [form.dwellTemp, form.dwellTime];
+      break;
+    /* case "enduranceVibrationVariables": 
+      marker = [];
+      fieldName = [];
+      break; */
+    case "thermalShockVariables":
+      marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{shockEvents}'];
+      fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.shockEvents];  
+      break;
+  }
+  var body = DocumentApp.getActiveDocument().getBody();
+  var footer = DocumentApp.getActiveDocument().getFooter();
+  for (i=0; i<marker.length; ++i)
+  {
+    if (fieldName[i] != "")
+    {
+      body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document, second argument is the matching text field on the sidebar.
+      //footer.replaceText(marker[i], fieldName[i]); // TO DO: The footer text isn't being replaced for some reason.
+    }
+  }
+  console.log("We finished the function!");
+}
+
+function addNewTest(form)
+{
   var selectedTest = form.tests;
-  switch (selectedTest) {
+  switch (selectedTest)
+  {
     case "thermalCycle":
       appendTest('https://docs.google.com/document/d/1WZLUd_iRxE5uwvMsFIBV-DMvpGlWa8-tbdAg0QIYTo0/edit');
-      // Get test specific information from the user.
-      var tcVariables = ['{tcMinTemp}', '{tcDwellTime}', '{tcMaxTemp}', '{tcCycles}'];
       break;
     case "chemicalExposure":
       appendTest('https://docs.google.com/document/d/1Tkp-byLQ9MUcBLqyPPTP568x8rad4QcgQ9cEkV1CFk8/edit');
@@ -82,7 +136,8 @@ function addNewTest(form) {
   }
 }
 
-function appendTest(testID) {
+function appendTest(testID)
+{
   var thisDoc = DocumentApp.getActiveDocument();
   var thisBody = thisDoc.getBody();
   var templateDoc = DocumentApp.openByUrl(testID); // Pass in id of doc to be used as a template.
@@ -107,9 +162,4 @@ function appendTest(testID) {
     }
   }
   return thisDoc;
-}
-
-function getTestSpecificInformation()
-{
-
 }

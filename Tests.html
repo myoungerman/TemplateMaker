@@ -109,16 +109,29 @@ margin-top: 10px;
     <p>What vibration profile do you want to use?</p>
     <!-- <input type="text" name="minTemp" value=""> -->
   </form>
-  <input type="button" class="action testInfoButton" onclick="" value="Submit information for this test" /> 
+  <input type="button" class="action testInfoButton" onclick="submitSpecificTestInformation()" value="Submit information for this test" /> 
   </body>
   
   <script type="text/javascript">
   function formSubmit()
   {
-    var temp = document.forms[0].tests.value + "Variables";
-    document.getElementById(temp).style.display = 'block';
+    var selectedTest = document.forms[0].tests.value + "Variables"; // Tells us what test was selected from the drop-down.
+    document.getElementById(selectedTest).style.display = 'block';
     document.querySelector('.testInfoButton').style.display = 'block';
-    google.script.run.addNewTest(document.forms[0]); // I believe the argument uses the first form in the HTML.
-   }
+    google.script.run.addNewTest(document.forms[0]);
+  }
+
+  function submitSpecificTestInformation()
+  {
+    formNames = new Map([["coldSoakVariables", 1],["hotSoakVariables", 2],["hotStorageVariables", 3],
+    ["coldStorageVariables", 4],["thermalCycleVariables", 5],["thermalShockVariables", 6],
+    ["enduranceVibrationVariables", 7]]);
+
+    var selectedTest = document.forms[0].tests.value + "Variables"; //
+    alert(selectedTest);
+    var index = formNames.get(selectedTest);  //Look up in map to get form index.
+    alert(index);
+    google.script.run.populateTestSpecificInformation(document.forms[3]) //A form goes in here...
+  }
   </script>
 </html>
