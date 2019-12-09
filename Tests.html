@@ -52,6 +52,7 @@ margin-top: 10px;
     <input type="text" name="minVoltage" value="">
     <p>What's the maximum voltage?</p>
     <input type="text" name="maxVoltage" value="">
+    <input type="hidden" name="hiddenTestName" value = "1"/> <!--Since form.id only returns undefined in Code.js, this hidden input is how to tell what form we're in-->
   </form>
   <form id="hotSoakVariables" class="toggleForm"> 
     <p>Tell me more about this hot soak test:</p>
@@ -67,6 +68,7 @@ margin-top: 10px;
     <input type="text" name="steadyTime" value="">
     <p>What's the voltage range?</p>
     <input type="text" name="voltageRange" value="">
+    <input type="hidden" name="hiddenTestName" value = "2"/>
   </form>
   <form id="hotStorageVariables" class="toggleForm"> 
     <p>Tell me more about this hot storage test:</p>
@@ -74,6 +76,7 @@ margin-top: 10px;
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
     <input type="text" name="dwellTime" value="">
+    <input type="hidden" name="hiddenTestName" value = "3"/>
   </form>
   <form id="coldStorageVariables" class="toggleForm"> 
     <p>Tell me more about this cold storage test:</p>
@@ -81,6 +84,7 @@ margin-top: 10px;
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
     <input type="text" name="dwellTime" value="">
+    <input type="hidden" name="hiddenTestName" value = "4"/>
   </form>
   <form id="thermalCycleVariables" class="toggleForm">
     <p>Tell me more about this thermal cycling test:</p>
@@ -91,7 +95,8 @@ margin-top: 10px;
     <p>How long is the dwell time in hours? (Look at the table in the overview.)</p>
     <input type="text" name="dwellTime" value="">
     <p>How many cycles are there?</p>
-    <input type="text" name="cycles" value=""> 
+    <input type="text" name="cycles" value="">
+    <input type="hidden" name="hiddenTestName" value = "5"/> 
   </form>
   <form id="thermalShockVariables" class="toggleForm">
     <p>Tell me more about this thermal shock test:</p>
@@ -102,12 +107,14 @@ margin-top: 10px;
     <p>How long is the dwell time in hours?</p>
     <input type="text" name="dwellTime" value="">
     <p>How many shock events are there?</p>
-    <input type="text" name="shockEvents" value=""> 
+    <input type="text" name="shockEvents" value="">
+    <input type="hidden" name="hiddenTestName" value = "6"/> 
   </form>
   <form id="enduranceVibrationVariables" class="toggleForm"> <!--TO DO: Add bulleted list that insert the different profiles -->
     <p>Tell me more about this endurance (survivability) vibration test:</p>
     <p>What vibration profile do you want to use?</p>
     <!-- <input type="text" name="minTemp" value=""> -->
+    <input type="hidden" name="hiddenTestName" value = "7"/>
   </form>
   <input type="button" class="action testInfoButton" onclick="submitSpecificTestInformation()" value="Submit information for this test" /> 
   </body>
@@ -129,10 +136,8 @@ margin-top: 10px;
 
     var selectedTest = document.forms[0].tests.value + "Variables";
     var index = formNames.get(selectedTest);  // Looks up the test in the map to get the form index.
-    alert("The id is " + document.forms[index].id);
-    google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here...
-    // google.script.run.populateTestSpecificInformation(document.forms[index].id) // Testing what happens with a .id in the argument.
-    alert("Ran the script.");
+    var testNameAsString = document.forms[index].id;
+    google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
   }
   </script>
 </html>

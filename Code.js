@@ -44,45 +44,45 @@ function populateGeneralInformation(form)
   }
 }
 
+function getTestNameAsString(test)
+{
+  var testNameAsString = test;
+  console.log(testNameAsString);
+}
+
 function populateTestSpecificInformation(form)
 {
-  console.log("form's type is " + typeof form); // Debugs as object, which matches populateGeneralInformation.
-  console.log("form.id returns: " + form.id); // Debugs as undefined. How can we get the id of the form?
-  console.log("for test specific information, form is " + form); // Debugs as [object Object]. Tried setting a case to [object Object] but got an error.
-  console.log("dwellTemp is " + form.dwellTemp + " and dwell time is " + form.dwellTime); // Debugs the typed value!!! 
+  // var storedValue = JSON.stringify(form); // Tested what JSON.stringify outputs. Could be useful in other situations.
   var marker = [];
   var fieldName = [];
-  /* TO DO: Right now the argument (the id) is being passed as a string. This causes the if statement error because the string isn't an object, so it
-  can't access the object's text boxes. Get the form's id as an object, 
-  then we can make cases for each form id that accept objects instead of strings. Can we convert the argument from string to object after it is passed in? */
-  switch (form)
+  switch (form.hiddenTestName)
   {
-    case "thermalCycleVariables":
+    case "5": /*"thermalCycleVariables"*/
       console.log("thermal cycle has been hit.")
       marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{cycles}'];
       fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.cycles]; 
       break;
-    case "coldSoakVariables":
+    case "1": /* "coldSoakVariables" */
       marker = ['{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}'];
       fieldName = [form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage];
       break;
-    case "hotSoakVariables":
+    case "2": /*"hotSoakVariables" */
       marker = ['{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}', '{steadyTime}', '{voltageRange}'];
       fieldName = [form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage, form.steadyTime, form.voltageRange];
       break;
-    case "coldStorageVariables":
+    case "4": /*"coldStorageVariables"*/
       marker = ['{dwellTemp}', '{dwellTime}'];
       fieldName = [form.dwellTemp, form.dwellTime];
       break;
-    case "hotStorageVariables":
+    case "3": /*"hotStorageVariables"*/
       marker = ['{dwellTemp}', '{dwellTime}'];
       fieldName = [form.dwellTemp, form.dwellTime];
       break;
-    /* case "enduranceVibrationVariables": 
+    case "7": /*"enduranceVibrationVariables"*/ // TO DO: Add appropriate links to the HTML form for this test.
       marker = [];
       fieldName = [];
-      break; */
-    case "thermalShockVariables":
+      break;
+    case "6": /*"thermalShockVariables"*/
       marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{shockEvents}'];
       fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.shockEvents];  
       break;
@@ -97,7 +97,6 @@ function populateTestSpecificInformation(form)
       //footer.replaceText(marker[i], fieldName[i]); // TO DO: The footer text isn't being replaced for some reason.
     }
   }
-  console.log("We finished the function!");
 }
 
 function addNewTest(form)
