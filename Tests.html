@@ -110,7 +110,7 @@ margin-top: 10px;
     <input type="text" name="shockEvents" value="">
     <input type="hidden" name="hiddenTestName" value = "6"/> 
   </form>
-  <form id="enduranceVibrationVariables" class="toggleForm"> <!--TO DO: Add bulleted list that insert the different profiles -->
+  <form id="enduranceVibrationVariables" class="toggleForm"> <!--TO DO: Add bulleted list that insert the different profiles as images -->
     <p>Tell me more about this endurance (survivability) vibration test:</p>
     <p>What vibration profile do you want to use?</p>
     <!-- <input type="text" name="minTemp" value=""> -->
@@ -122,10 +122,16 @@ margin-top: 10px;
   <script type="text/javascript">
   function formSubmit()
   {
+    var keepTrack = [];
     var selectedTest = document.forms[0].tests.value + "Variables"; // Tells us what test was selected from the drop-down.
-    document.getElementById(selectedTest).style.display = 'block';
-    document.querySelector('.testInfoButton').style.display = 'block';
+    if (selectedTest != "chemicalExposureVariables" && selectedTest != "functionalVibrationVariables" && selectedTest != "istaDropVariables" && selectedTest != "transitDropVariables") // Avoids calling non-existent forms like "chemicalExposureVariables", which would throw an error.
+    {
+      document.getElementById(selectedTest).style.display = 'block';
+      document.querySelector('.testInfoButton').style.display = 'block';
+    }
     google.script.run.addNewTest(document.forms[0]);
+    keepTrack += document.forms[0].tests.value;
+    alert("So far you've selected the following tests:" + keepTrack);
   }
 
   function submitSpecificTestInformation()

@@ -9,10 +9,10 @@ function onOpen()
 
 function opentitlePageDialog()
 {
-  var html = HtmlService.createHtmlOutputFromFile('TitlePage'); // Create an HTML output using 'TitlePage.html'
-  html.setTitle("Add Title Page Information"); // Set the title of the sidebar
+  var html = HtmlService.createHtmlOutputFromFile('TitlePage'); // Create an HTML output using 'TitlePage.html'.
+  html.setTitle("Add Title Page Information"); // Set the title of the sidebar.
   DocumentApp.getUi() 
-      .showSidebar(html); // Display the HTML file as a sidebar
+      .showSidebar(html); // Display the HTML file as a sidebar.
 }
 
 function openTestDialog()
@@ -25,29 +25,18 @@ function openTestDialog()
 
 function populateGeneralInformation(form)
 {
-  console.log("form's type is " + typeof form); // Debugs as object
-  console.log("form.id returns: " + form.id); // Debugs as undefined.
-  console.log("for general information, form is " + form); // Debugs as [object Object]
   var marker = ['{Test Plan Name}', '{Name}', '{Date}', '{Jira #}', '{Part name}', '{Part number}', '{Project name}'];
   var fieldName = [form.testPlanName, form.fullName, form.date, form.jiraTicketNumber, form.partName, form.partNumber, form.projectName]; // I learned that arrays can store a class with a property, like form.fullName. Arrays can store any data type!
-  
   var body = DocumentApp.getActiveDocument().getBody();
-  var footer = DocumentApp.getActiveDocument().getFooter();
+  var footer = DocumentApp.getActiveDocument().getFooter().getParent().getChild(4); // Because the first page has a different footer, DocumentApp.getActiveDocument().getFooter(); would check only the first page. // TO DO: Figure out why getChild is 4. 
   for (i=0; i<marker.length; i++)
   {
     if (fieldName[i] != "")
     {
       body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document, second argument is the matching text field on the sidebar.
-      //footer.replaceText(marker[i], fieldName[i]); // TO DO: The footer text isn't being replaced for some reason.
-      DocumentApp.getUi().alert(marker[i],footer[i]);
+      footer.replaceText(marker[i], fieldName[i]); 
     }
   }
-}
-
-function getTestNameAsString(test)
-{
-  var testNameAsString = test;
-  console.log(testNameAsString);
 }
 
 function populateTestSpecificInformation(form)
@@ -58,7 +47,6 @@ function populateTestSpecificInformation(form)
   switch (form.hiddenTestName)
   {
     case "5": /*"thermalCycleVariables"*/
-      console.log("thermal cycle has been hit.")
       marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{cycles}'];
       fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.cycles]; 
       break;
@@ -88,13 +76,11 @@ function populateTestSpecificInformation(form)
       break;
   }
   var body = DocumentApp.getActiveDocument().getBody();
-  var footer = DocumentApp.getActiveDocument().getFooter();
   for (i=0; i<marker.length; ++i)
   {
     if (fieldName[i] != "")
     {
       body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document, second argument is the matching text field on the sidebar.
-      //footer.replaceText(marker[i], fieldName[i]); // TO DO: The footer text isn't being replaced for some reason.
     }
   }
 }
@@ -126,7 +112,7 @@ function addNewTest(form)
       appendTest('https://docs.google.com/document/d/1X4U0m360d6m9b4cdz9GGlRUsFOo53nmyHgL6bhqECSA/edit');
       break;
     case "functionalVibration":
-      appendTest('https://docs.google.com/document/d/1c9-j9FwiH_H53BMk_n4kJtOwY2Kz6cFEwomtkUup67E/edit');
+      appendTest('https://docs.google.com/document/d/1gPzlT8K64NxwVMyoyGHMndo2NtuQcqqnLGrISwMIIbI/edit#'); // Version without the table layout.
       break;
     case "istaDrop":
       appendTest('https://docs.google.com/document/d/1qL0A0cFN5nbHcxq0lR9vMlKd1ckAvrletOPKzMPJ0HI/edit');
@@ -148,13 +134,26 @@ function appendTest(testID)
 
   var templateBody = templateDoc.getBody();
 
-  for (var i = 0; i < templateBody.getNumChildren(); i++) { // run through the elements of the template doc's Body.
+  for (var i = 0; i < templateBody.getNumChildren(); i++) { // Run through the elements of the template doc's Body.
     switch (templateBody.getChild(i).getType()) { // Deal with the various types of Elements we will encounter and append.
       case DocumentApp.ElementType.PARAGRAPH:
         thisBody.appendParagraph(templateBody.getChild(i).copy());
         break;
       case DocumentApp.ElementType.LIST_ITEM:
-        thisBody.appendListItem(templateBody.getChild(i).copy());
+        var typeOfList = templateBody.getChild(i).getGlyphType(); // Determine the type of the list item.
+        var typeOfListAsString = JSON.stringify(typeOfList); // Convert the type from an object to a string that will be used in the if statement.
+        console.log("This list item is a " + typeOfListAsString); // TO DO: Figure out why this if statement isn't working. It keeps adding numbers where there should be bullets.
+        if (typeOfListAsString = "NUMBER")
+        {
+          thisBody.appendListItem(templateBody.getChild(i).copy()).setGlyphType(DocumentApp.GlyphType.NUMBER);
+          console.log("added a number");
+        } else if (typeOfListAsString = "BULLET")
+        {
+          thisBody.appendListItem(templateBody.getChild(i).copy()).setGlyphType(DocumentApp.GlyphType.BULLET);
+          console.log("added a bullet");
+        } else {
+          thisBody.appendListItem(templateBody.getChild(i).copy()).setGlyphType(DocumentApp.GlyphType.LATIN_LOWER);
+        }
         break;
       case DocumentApp.ElementType.TABLE:
         thisBody.appendTable(templateBody.getChild(i).copy());
@@ -162,7 +161,6 @@ function appendTest(testID)
       case DocumentApp.ElementType.INLINE_IMAGE:
         thisBody.appendImage(templateBody.getChild(i).copy());
         break;
-
     }
   }
   return thisDoc;
