@@ -144,6 +144,8 @@ margin-top: 10px;
     var index = formNames.get(selectedTest);  // Looks up the test in the map to get the form index.
     var testNameAsString = document.forms[index].id;
     google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
+    document.getElementById(selectedTest).style.display = 'none';
+    document.querySelector('.testInfoButton').style.display = 'none';
   }
   </script>
 </html>
