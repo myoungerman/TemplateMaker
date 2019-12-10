@@ -66,9 +66,15 @@ function populateTestSpecificInformation(form)
       marker = ['{dwellTemp}', '{dwellTime}'];
       fieldName = [form.dwellTemp, form.dwellTime];
       break;
-    case "7": /*"enduranceVibrationVariables"*/ // TO DO: Add appropriate links to the HTML form for this test.
-      marker = [];
-      fieldName = [];
+    case "7": /*"enduranceVibrationVariables"*/ 
+      marker = ['{enduranceProfiles}'];
+      /*switch (form.enduranceProfiles.value) // TO DO: Add appropriate links to the HTML form for this test.
+      {
+        case "1A":
+
+          break;
+      }*/
+      fieldName = [form.enduranceProfiles.value];
       break;
     case "6": /*"thermalShockVariables"*/
       marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{shockEvents}'];
@@ -76,11 +82,14 @@ function populateTestSpecificInformation(form)
       break;
   }
   var body = DocumentApp.getActiveDocument().getBody();
-  for (i=0; i<marker.length; ++i)
+  if (form.hiddenTestName != "7")
   {
-    if (fieldName[i] != "")
+    for (i=0; i<marker.length; ++i)
     {
-      body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document, second argument is the matching text field on the sidebar.
+      if (fieldName[i] != "")
+      {
+        body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document, second argument is the matching text field on the sidebar.
+      }
     }
   }
 }
@@ -91,10 +100,10 @@ function addNewTest(form)
   switch (selectedTest)
   {
     case "thermalCycle":
-      appendTest('https://docs.google.com/document/d/1WZLUd_iRxE5uwvMsFIBV-DMvpGlWa8-tbdAg0QIYTo0/edit');
+      appendTest('https://docs.google.com/document/d/1pdqgD7eWGZfip1K795DE0Pal0qG5NsNTxAe-CfJyXkQ/edit');
       break;
     case "chemicalExposure":
-      appendTest('https://docs.google.com/document/d/1Tkp-byLQ9MUcBLqyPPTP568x8rad4QcgQ9cEkV1CFk8/edit');
+      appendTest('https://docs.google.com/document/d/1BMM0rXBD-rB-9tWraeDT6lnCEUSx3timBVt86inHNbs/edit');
       break;
     case "coldSoak":
       appendTest('https://docs.google.com/document/d/1dsrzhk2AqhhJIS47mieGwTNUmeFL2l9tB4xWlJkEJ5c/edit');
@@ -112,7 +121,7 @@ function addNewTest(form)
       appendTest('https://docs.google.com/document/d/1X4U0m360d6m9b4cdz9GGlRUsFOo53nmyHgL6bhqECSA/edit');
       break;
     case "functionalVibration":
-      appendTest('https://docs.google.com/document/d/1gPzlT8K64NxwVMyoyGHMndo2NtuQcqqnLGrISwMIIbI/edit#'); // Version without the table layout.
+      appendTest('https://docs.google.com/document/d/1gPzlT8K64NxwVMyoyGHMndo2NtuQcqqnLGrISwMIIbI/edit#');
       break;
     case "istaDrop":
       appendTest('https://docs.google.com/document/d/1qL0A0cFN5nbHcxq0lR9vMlKd1ckAvrletOPKzMPJ0HI/edit');
@@ -131,8 +140,9 @@ function appendTest(testID)
   var thisDoc = DocumentApp.getActiveDocument();
   var thisBody = thisDoc.getBody();
   var templateDoc = DocumentApp.openByUrl(testID); // Pass in id of doc to be used as a template.
-
   var templateBody = templateDoc.getBody();
+  var sizeOfItems = {};
+  sizeOfItems[DocumentApp.Attribute.FONT_SIZE] = 10;
 
   for (var i = 0; i < templateBody.getNumChildren(); i++) { // Run through the elements of the template doc's Body.
     switch (templateBody.getChild(i).getType()) { // Deal with the various types of Elements we will encounter and append.
@@ -140,13 +150,16 @@ function appendTest(testID)
         thisBody.appendParagraph(templateBody.getChild(i).copy());
         break;
       case DocumentApp.ElementType.LIST_ITEM:
-        var typeOfList = templateBody.getChild(i).getGlyphType(); // Determine the type of the list item.
+        var typeOfList = templateBody.getChild(i).getGlyphType(); // Determine the type of the list item. Returns an object.
         var typeOfListAsString = JSON.stringify(typeOfList); // Convert the type from an object to a string that will be used in the if statement.
         console.log("This list item is a " + typeOfListAsString); // TO DO: Figure out why this if statement isn't working. It keeps adding numbers where there should be bullets.
         if (typeOfListAsString = "NUMBER")
         {
-          thisBody.appendListItem(templateBody.getChild(i).copy()).setGlyphType(DocumentApp.GlyphType.NUMBER);
-          console.log("added a number");
+          var item = thisBody.appendListItem(templateBody.getChild(i).copy())
+          item.setAttributes(sizeOfItems);
+          console.log("set size");
+          item.setGlyphType(DocumentApp.GlyphType.NUMBER);
+          console.log("set number");
         } else if (typeOfListAsString = "BULLET")
         {
           thisBody.appendListItem(templateBody.getChild(i).copy()).setGlyphType(DocumentApp.GlyphType.BULLET);
