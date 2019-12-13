@@ -5,9 +5,6 @@
 body {
 padding-left: 15px;
 }
-.button {
-margin: 10px;
-}
 .testInfoButton {
   display: none;
 }
@@ -16,6 +13,13 @@ margin: 10px;
 }
 .toggleForm {
   display: none;
+}
+.button, button, input[type="button"], input[type="image"], input[type="reset"], input[type="submit"] {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.promptForInfo {
+  font-weight: bold;
 }
 </style>
 
@@ -43,7 +47,7 @@ margin: 10px;
     <input type="button" class="action" onclick="formSubmit()" value="Add test" />
 <!--These are prompts for test specific information-->
   <form id="coldSoakVariables" class="toggleForm"> 
-    <p>Tell me more about this cold soak test:</p>
+    <p class="promptForInfo">Tell me more about this cold soak test:</p>
     <p>What's the dwell temperature?</p>
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
@@ -55,7 +59,7 @@ margin: 10px;
     <input type="hidden" name="hiddenTestName" value = "1"/> <!--Since form.id only returns undefined in Code.js, this hidden input is how to tell what form we're in-->
   </form>
   <form id="hotSoakVariables" class="toggleForm"> 
-    <p>Tell me more about this hot soak test:</p>
+    <p class="promptForInfo">Tell me more about this hot soak test:</p>
     <p>What's the dwell temperature?</p>
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
@@ -71,7 +75,7 @@ margin: 10px;
     <input type="hidden" name="hiddenTestName" value = "2"/>
   </form>
   <form id="hotStorageVariables" class="toggleForm"> 
-    <p>Tell me more about this hot storage test:</p>
+    <p class="promptForInfo">Tell me more about this hot storage test:</p>
     <p>What's the dwell temperature?</p>
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
@@ -79,7 +83,7 @@ margin: 10px;
     <input type="hidden" name="hiddenTestName" value = "3"/>
   </form>
   <form id="coldStorageVariables" class="toggleForm"> 
-    <p>Tell me more about this cold storage test:</p>
+    <p class="promptForInfo">Tell me more about this cold storage test:</p>
     <p>What's the dwell temperature?</p>
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
@@ -87,7 +91,7 @@ margin: 10px;
     <input type="hidden" name="hiddenTestName" value = "4"/>
   </form>
   <form id="thermalCycleVariables" class="toggleForm">
-    <p>Tell me more about this thermal cycling test:</p>
+    <p class="promptForInfo">Tell me more about this thermal cycling test:</p>
     <p>What's the minimum temperature?</p>
     <input type="text" name="minTemp" value="">
     <p>What's the maximum temperature?</p>
@@ -99,7 +103,7 @@ margin: 10px;
     <input type="hidden" name="hiddenTestName" value = "5"/> 
   </form>
   <form id="thermalShockVariables" class="toggleForm">
-    <p>Tell me more about this thermal shock test:</p>
+    <p class="promptForInfo">Tell me more about this thermal shock test:</p>
     <p>What's the minimum temperature?</p>
     <input type="text" name="minTemp" value="">
     <p>What's the maximum temperature?</p>
@@ -111,7 +115,7 @@ margin: 10px;
     <input type="hidden" name="hiddenTestName" value = "6"/> 
   </form>
   <form id="enduranceVibrationVariables" class="toggleForm"> <!--TO DO: Add bulleted list that insert the different profiles as images -->
-    <p>Tell me more about this endurance (survivability) vibration test:</p>
+    <p class="promptForInfo">Tell me more about this endurance (survivability) vibration test:</p>
     <p>What vibration profile do you want to use?</p>
     <select name="enduranceProfiles">
       <option value="1A">1A</option>
@@ -141,7 +145,6 @@ margin: 10px;
   
   function formSubmit()
     {
-      var keepTrack = [];
       var selectedTest = document.forms[0].tests.value + "Variables"; // Tell us what test was selected from the drop-down.
       if (selectedTest != "chemicalExposureVariables" && selectedTest != "functionalVibrationVariables" && selectedTest != "istaDropVariables" && selectedTest != "transitDropVariables") // Show fields for test specific information if the test has any.
       {
@@ -155,7 +158,6 @@ margin: 10px;
         document.querySelector('.testInfoButton').style.display = 'block';
       }
       google.script.run.addNewTest(document.forms[0]);
-      keepTrack += document.forms[0].tests.value;
     }
 
     function submitSpecificTestInformation()
