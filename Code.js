@@ -44,12 +44,13 @@ function populateTestSpecificInformation(form)
   // var storedValue = JSON.stringify(form); // Tested what JSON.stringify outputs. Could be useful in other situations.
   var marker = [];
   var fieldName = [];
+  var profileId;
+  var img;
+  var body = DocumentApp.getActiveDocument().getBody();
+
   switch (form.hiddenTestName)
   {
-    case "5": /*"thermalCycleVariables"*/
-      marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{cycles}'];
-      fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.cycles]; 
-      break;
+    
     case "1": /* "coldSoakVariables" */
       marker = ['{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}'];
       fieldName = [form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage];
@@ -58,22 +59,32 @@ function populateTestSpecificInformation(form)
       marker = ['{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}', '{steadyTime}', '{voltageRange}'];
       fieldName = [form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage, form.steadyTime, form.voltageRange];
       break;
-    case "4": /*"coldStorageVariables"*/
-      marker = ['{dwellTemp}', '{dwellTime}'];
-      fieldName = [form.dwellTemp, form.dwellTime];
-      break;
     case "3": /*"hotStorageVariables"*/
       marker = ['{dwellTemp}', '{dwellTime}'];
       fieldName = [form.dwellTemp, form.dwellTime];
       break;
+    case "4": /*"coldStorageVariables"*/
+      marker = ['{dwellTemp}', '{dwellTime}'];
+      fieldName = [form.dwellTemp, form.dwellTime];
+      break;
+    case "5": /*"thermalCycleVariables"*/
+      marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{cycles}'];
+      fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.cycles]; 
+      break;
     case "7": /*"enduranceVibrationVariables"*/ 
       marker = ['{enduranceProfiles}'];
-      /*switch (form.enduranceProfiles.value) // TO DO: Add appropriate links to the HTML form for this test.
+      console.log(toString(form.hiddenTestName.enduranceProfiles.value));
+      switch (form.enduranceProfiles.value) // TO DO: Add appropriate links to the HTML form for this test.
       {
         case "1A":
-
+          img = getUrl('https://drive.google.com/drive/u/0/folders/1UBJv5pBRDMsnB7RDTX6gHGhgyTSSWANF');
+          console.log("Appending Zoot")
+          var imgBlob = img.getAs('image/jpeg');         
+          body.appendParagraph("Zoot");
+          console.log("Zoot has been appended")
+          body.appendImage(imgBlob);
           break;
-      }*/
+      }
       fieldName = [form.enduranceProfiles.value];
       break;
     case "6": /*"thermalShockVariables"*/
@@ -81,17 +92,13 @@ function populateTestSpecificInformation(form)
       fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.shockEvents];  
       break;
   }
-  var body = DocumentApp.getActiveDocument().getBody();
-  if (form.hiddenTestName != "7")
-  {
     for (i=0; i<marker.length; ++i)
     {
-      if (fieldName[i] != "")
+      if (fieldName[i] != "" && form.hiddenTestName != "7")
       {
-        body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document, second argument is the matching text field on the sidebar.
+        body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document. Second argument is the matching text field on the sidebar.
       }
     }
-  }
 }
 
 function addNewTest(form)
@@ -144,8 +151,10 @@ function appendTest(testID)
   var sizeOfItems = {};
   sizeOfItems[DocumentApp.Attribute.FONT_SIZE] = 10;
 
-  for (var i = 0; i < templateBody.getNumChildren(); i++) { // Run through the elements of the template doc's Body.
-    switch (templateBody.getChild(i).getType()) { // Deal with the various types of Elements we will encounter and append.
+  for (var i = 0; i < templateBody.getNumChildren(); i++)
+  { // Run through the elements of the template doc's Body.
+    switch (templateBody.getChild(i).getType())
+    { // Deal with the various types of Elements we will encounter and append.
       case DocumentApp.ElementType.PARAGRAPH:
         thisBody.appendParagraph(templateBody.getChild(i).copy());
         break;
@@ -176,5 +185,5 @@ function appendTest(testID)
         break;
     }
   }
-  return thisDoc;
+  thisBody.appendPageBreak(); // Add a page break once the whole test has been copied.
 }

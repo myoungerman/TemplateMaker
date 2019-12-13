@@ -5,8 +5,8 @@
 body {
 padding-left: 15px;
 }
-.action {
-margin-top: 10px;
+.button {
+margin: 10px;
 }
 .testInfoButton {
   display: none;
@@ -136,32 +136,40 @@ margin-top: 10px;
   </body>
   
   <script type="text/javascript">
+
+  var lastTest = "";
+  
   function formSubmit()
-  {
-    var keepTrack = [];
-    var selectedTest = document.forms[0].tests.value + "Variables"; // Tells us what test was selected from the drop-down.
-    if (selectedTest != "chemicalExposureVariables" && selectedTest != "functionalVibrationVariables" && selectedTest != "istaDropVariables" && selectedTest != "transitDropVariables") // Avoids calling non-existent forms like "chemicalExposureVariables", which would throw an error.
     {
-      document.getElementById(selectedTest).style.display = 'block';
-      document.querySelector('.testInfoButton').style.display = 'block';
+      var keepTrack = [];
+      var selectedTest = document.forms[0].tests.value + "Variables"; // Tell us what test was selected from the drop-down.
+      if (selectedTest != "chemicalExposureVariables" && selectedTest != "functionalVibrationVariables" && selectedTest != "istaDropVariables" && selectedTest != "transitDropVariables") // Show fields for test specific information if the test has any.
+      {
+        if (lastTest != "" && lastTest != "chemicalExposureVariables" &&
+          lastTest != "functionalVibrationVariables" && lastTest != "istaDropVariables" && lastTest != "transitDropVariables") {  // If there was a last test and it had fields, hide them.
+          document.getElementById(lastTest).style.display = 'none';
+          document.querySelector('.testInfoButton').style.display = 'none';
+        }
+        lastTest = selectedTest; // Store the selected test in memory as our last test so we can identify it the next time the user clicks "Add test".
+        document.getElementById(selectedTest).style.display = 'block';
+        document.querySelector('.testInfoButton').style.display = 'block';
+      }
+      google.script.run.addNewTest(document.forms[0]);
+      keepTrack += document.forms[0].tests.value;
     }
-    google.script.run.addNewTest(document.forms[0]);
-    keepTrack += document.forms[0].tests.value;
-    alert("So far you've selected the following tests:" + keepTrack);
-  }
 
-  function submitSpecificTestInformation()
-  {
-    var formNames = new Map([["coldSoakVariables", 1],["hotSoakVariables", 2],["hotStorageVariables", 3],
-    ["coldStorageVariables", 4],["thermalCycleVariables", 5],["thermalShockVariables", 6],
-    ["enduranceVibrationVariables", 7]]);
+    function submitSpecificTestInformation()
+    {
+      var formNames = new Map([["coldSoakVariables", 1], ["hotSoakVariables", 2], ["hotStorageVariables", 3],
+      ["coldStorageVariables", 4], ["thermalCycleVariables", 5], ["thermalShockVariables", 6],
+      ["enduranceVibrationVariables", 7]]);
 
-    var selectedTest = document.forms[0].tests.value + "Variables";
-    var index = formNames.get(selectedTest);  // Looks up the test in the map to get the form index.
-    var testNameAsString = document.forms[index].id;
-    google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
-    document.getElementById(selectedTest).style.display = 'none';
-    document.querySelector('.testInfoButton').style.display = 'none';
-  }
-  </script>
-</html>
+      var selectedTest = document.forms[0].tests.value + "Variables";
+      var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
+      var testNameAsString = document.forms[index].id;
+      google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
+      document.getElementById(selectedTest).style.display = 'none';
+      document.querySelector('.testInfoButton').style.display = 'none';
+    }
+  </script> 
+      </html>
