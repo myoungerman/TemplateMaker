@@ -5,8 +5,12 @@
 body {
 padding-left: 15px;
 }
-.action {
-padding-top: 10px;
+.button, button, input[type="button"], input[type="image"], input[type="reset"], input[type="submit"] {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+input.testSummary {
+  width: 158px;
 }
 </style>
 
@@ -28,16 +32,19 @@ padding-top: 10px;
     <input type="text" name="partName" value="" />
     <p>Type the part number:</p>
     <input type="text" name="partNumber" value="" />
-        <p>Type the project name:</p>
+    <p>Type the project name:</p>
     <input type="text" name="projectName" value="" />
-    
-    <input type="button" class="action" onclick="formSubmit()" value="Submit" /> 
-   
+    <p>Briefly explain why we are doing this test and how this test fits into the project:</p>
+    <textarea name="testSummary" cols="25"></textarea>
   </form>
+
+  <input type="button" class="action" onclick="formSubmit()" value="Submit" />
+
   </body>
   <script type="text/javascript">
-  function formSubmit() {
-  google.script.run.populateGeneralInformation(document.forms[0]); // I believe the argument uses the first form in the HTML.
-   }
+  function formSubmit()
+  {
+    google.script.run.populateGeneralInformation(document.forms[0]); // Use the first form in the HTML for information.
+  }
   </script>
 </html>

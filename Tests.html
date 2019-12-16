@@ -48,6 +48,10 @@ padding-left: 15px;
 <!--These are prompts for test specific information-->
   <form id="coldSoakVariables" class="toggleForm"> 
     <p class="promptForInfo">Tell me more about this cold soak test:</p>
+    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
+    <textarea name="tooling" cols="25"></textarea>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
     <p>What's the dwell temperature?</p>
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
@@ -60,6 +64,10 @@ padding-left: 15px;
   </form>
   <form id="hotSoakVariables" class="toggleForm"> 
     <p class="promptForInfo">Tell me more about this hot soak test:</p>
+    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
+    <textarea name="tooling" cols="25"></textarea>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
     <p>What's the dwell temperature?</p>
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
@@ -76,6 +84,10 @@ padding-left: 15px;
   </form>
   <form id="hotStorageVariables" class="toggleForm"> 
     <p class="promptForInfo">Tell me more about this hot storage test:</p>
+    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
+    <textarea name="tooling" cols="25"></textarea>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
     <p>What's the dwell temperature?</p>
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
@@ -84,6 +96,10 @@ padding-left: 15px;
   </form>
   <form id="coldStorageVariables" class="toggleForm"> 
     <p class="promptForInfo">Tell me more about this cold storage test:</p>
+    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
+    <textarea name="tooling" cols="25"></textarea>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
     <p>What's the dwell temperature?</p>
     <input type="text" name="dwellTemp" value="">
     <p>How long is the dwell time in hours?</p>
@@ -92,6 +108,10 @@ padding-left: 15px;
   </form>
   <form id="thermalCycleVariables" class="toggleForm">
     <p class="promptForInfo">Tell me more about this thermal cycling test:</p>
+    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
+    <textarea name="tooling" cols="25"></textarea>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
     <p>What's the minimum temperature?</p>
     <input type="text" name="minTemp" value="">
     <p>What's the maximum temperature?</p>
@@ -104,6 +124,10 @@ padding-left: 15px;
   </form>
   <form id="thermalShockVariables" class="toggleForm">
     <p class="promptForInfo">Tell me more about this thermal shock test:</p>
+    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
+    <textarea name="tooling" cols="25"></textarea>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
     <p>What's the minimum temperature?</p>
     <input type="text" name="minTemp" value="">
     <p>What's the maximum temperature?</p>
@@ -116,6 +140,8 @@ padding-left: 15px;
   </form>
   <form id="enduranceVibrationVariables" class="toggleForm"> <!--TO DO: Add bulleted list that insert the different profiles as images -->
     <p class="promptForInfo">Tell me more about this endurance (survivability) vibration test:</p>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
     <p>What vibration profile do you want to use?</p>
     <select name="enduranceProfiles">
       <option value="1A">1A</option>
@@ -136,11 +162,38 @@ padding-left: 15px;
     </select>
     <input type="hidden" name="hiddenTestName" value = "7"/>
   </form>
+  <form id="chemicalExposureVariables" class="toggleForm">
+    <p class="promptForInfo">Tell me more about this chemical exposure test:</p>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
+    <input type="hidden" name="hiddenTestName" value = "8"/>
+  </form>
+  <form id="functionalVibrationVariables" class="toggleForm">
+    <p class="promptForInfo">Tell me more about this functional vibration test:</p>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
+    <input type="hidden" name="hiddenTestName" value = "9"/>
+  </form>
+  <form id="istaDropVariables" class="toggleForm">
+    <p class="promptForInfo">Tell me more about this ISTA drop test:</p>
+    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
+    <textarea name="tooling" cols="25"></textarea>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
+    <input type="hidden" name="hiddenTestName" value = "10"/>
+  </form>
+  <form id="transitDropVariables" class="toggleForm">
+    <p class="promptForInfo">Tell me more about this transit drop test:</p>
+    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
+    <textarea name="tooling" cols="25"></textarea>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
+    <input type="hidden" name="hiddenTestName" value = "11"/>
+  </form>
   <input type="button" class="action testInfoButton" onclick="submitSpecificTestInformation()" value="Submit information for this test" /> 
   </body>
   
   <script type="text/javascript">
-
   var lastTest = "";
   
   function formSubmit()
