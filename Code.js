@@ -25,8 +25,8 @@ function openTestDialog()
 
 function populateGeneralInformation(form)
 {
-  var marker = ['{Test Plan Name}', '{Name}', '{Date}', '{Jira #}', '{Part name}', '{Part number}', '{Project name}'];
-  var fieldName = [form.testPlanName, form.fullName, form.date, form.jiraTicketNumber, form.partName, form.partNumber, form.projectName]; // I learned that arrays can store a class with a property, like form.fullName. Arrays can store any data type!
+  var marker = ['{Test Plan Name}', '{Name}', '{Date}', '{Jira #}', '{Part name}', '{Part number}', '{Project name}', '{testSummary}'];
+  var fieldName = [form.testPlanName, form.fullName, form.date, form.jiraTicketNumber, form.partName, form.partNumber, form.projectName, form.testSummary]; // I learned that arrays can store a class with a property, like form.fullName. Arrays can store any data type!
   var body = DocumentApp.getActiveDocument().getBody();
   var footer = DocumentApp.getActiveDocument().getFooter().getParent().getChild(4); // Because the first page has a different footer, DocumentApp.getActiveDocument().getFooter(); would check only the first page. // TO DO: Figure out why getChild is 4. 
   for (i=0; i<marker.length; i++)
@@ -37,6 +37,7 @@ function populateGeneralInformation(form)
       footer.replaceText(marker[i], fieldName[i]); 
     }
   }
+  nameFile(form.testPlanName, form.partNumber, form.partName, form.date);
 }
 
 function populateTestSpecificInformation(form)
@@ -52,27 +53,31 @@ function populateTestSpecificInformation(form)
   {
     
     case "1": /* "coldSoakVariables" */
-      marker = ['{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}'];
-      fieldName = [form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage];
+      marker = ['{tooling}', '{notes}', '{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}'];
+      fieldName = [form.tooling, form.notes, form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage];
       break;
     case "2": /*"hotSoakVariables" */
-      marker = ['{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}', '{steadyTime}', '{voltageRange}'];
-      fieldName = [form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage, form.steadyTime, form.voltageRange];
+      marker = ['{tooling}', '{notes}', '{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}', '{steadyTime}', '{voltageRange}'];
+      fieldName = [form.tooling, form.notes, form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage, form.steadyTime, form.voltageRange];
       break;
     case "3": /*"hotStorageVariables"*/
-      marker = ['{dwellTemp}', '{dwellTime}'];
-      fieldName = [form.dwellTemp, form.dwellTime];
+      marker = ['{tooling}', '{notes}', '{dwellTemp}', '{dwellTime}'];
+      fieldName = [form.tooling, form.notes, form.dwellTemp, form.dwellTime];
       break;
     case "4": /*"coldStorageVariables"*/
-      marker = ['{dwellTemp}', '{dwellTime}'];
-      fieldName = [form.dwellTemp, form.dwellTime];
+      marker = ['{tooling}', '{notes}', '{dwellTemp}', '{dwellTime}'];
+      fieldName = [form.tooling, form.notes, form.dwellTemp, form.dwellTime];
       break;
     case "5": /*"thermalCycleVariables"*/
-      marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{cycles}'];
-      fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.cycles]; 
+      marker = ['{tooling}', '{notes}', '{minTemp}', '{maxTemp}', '{dwellTime}', '{cycles}'];
+      fieldName = [form.tooling, form.notes, form.minTemp, form.maxTemp, form.dwellTime, form.cycles]; 
+      break;
+    case "6": /*"thermalShockVariables"*/
+      marker = ['{tooling}', '{notes}', '{minTemp}', '{maxTemp}', '{dwellTime}', '{shockEvents}'];
+      fieldName = [form.tooling, form.notes, form.minTemp, form.maxTemp, form.dwellTime, form.shockEvents];  
       break;
     case "7": /*"enduranceVibrationVariables"*/ 
-      marker = ['{enduranceProfiles}'];
+      marker = ['{notes}', '{enduranceProfiles}']; // No tooling
       console.log(toString(form.hiddenTestName.enduranceProfiles.value));
       switch (form.enduranceProfiles.value) // TO DO: Add appropriate links to the HTML form for this test.
       {
@@ -85,11 +90,7 @@ function populateTestSpecificInformation(form)
           body.appendImage(imgBlob);
           break;
       }
-      fieldName = [form.enduranceProfiles.value];
-      break;
-    case "6": /*"thermalShockVariables"*/
-      marker = ['{minTemp}', '{maxTemp}', '{dwellTime}', '{shockEvents}'];
-      fieldName = [form.minTemp, form.maxTemp, form.dwellTime, form.shockEvents];  
+      fieldName = [form.notes, form.enduranceProfiles.value];
       break;
   }
     for (i=0; i<marker.length; ++i)
@@ -186,4 +187,9 @@ function appendTest(testID)
     }
   }
   thisBody.appendPageBreak(); // Add a page break once the whole test has been copied.
+}
+
+function nameFile(type, number, name, date)
+{
+  DocumentApp.getActiveDocument().setName(type + " - " + number + " - " + name + " - " + date);
 }
