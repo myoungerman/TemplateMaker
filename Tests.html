@@ -53,7 +53,7 @@ padding-left: 15px;
     <p>What notes or expected results do you have?</p>
     <textarea name="notes" cols="25"></textarea>
     <p>What's the dwell temperature?</p>
-    <input type="text" name="dwellTemp" value="">
+    <input type="text" name="dwellTemp" value="" required>
     <p>How long is the dwell time in hours?</p>
     <input type="text" name="dwellTime" value="">
     <p>What's the minimum voltage?</p>
@@ -199,17 +199,14 @@ padding-left: 15px;
   function formSubmit()
     {
       var selectedTest = document.forms[0].tests.value + "Variables"; // Tell us what test was selected from the drop-down.
-      if (selectedTest != "chemicalExposureVariables" && selectedTest != "functionalVibrationVariables" && selectedTest != "istaDropVariables" && selectedTest != "transitDropVariables") // Show fields for test specific information if the test has any.
-      {
-        if (lastTest != "" && lastTest != "chemicalExposureVariables" &&
-          lastTest != "functionalVibrationVariables" && lastTest != "istaDropVariables" && lastTest != "transitDropVariables") {  // If there was a last test and it had fields, hide them.
+        if (lastTest != "") // If there was a last test, hide its fields.
+        {  
           document.getElementById(lastTest).style.display = 'none';
           document.querySelector('.testInfoButton').style.display = 'none';
         }
         lastTest = selectedTest; // Store the selected test in memory as our last test so we can identify it the next time the user clicks "Add test".
         document.getElementById(selectedTest).style.display = 'block';
         document.querySelector('.testInfoButton').style.display = 'block';
-      }
       google.script.run.addNewTest(document.forms[0]);
     }
 
@@ -217,11 +214,11 @@ padding-left: 15px;
     {
       var formNames = new Map([["coldSoakVariables", 1], ["hotSoakVariables", 2], ["hotStorageVariables", 3],
       ["coldStorageVariables", 4], ["thermalCycleVariables", 5], ["thermalShockVariables", 6],
-      ["enduranceVibrationVariables", 7]]);
+      ["enduranceVibrationVariables", 7], ["chemicalExposureVariables", 8], ["functionalVibrationVariables", 9],
+      ["istaDropVariables", 10], ["transitDropVariables", 11]]);
 
       var selectedTest = document.forms[0].tests.value + "Variables";
       var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
-      var testNameAsString = document.forms[index].id;
       google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
       document.getElementById(selectedTest).style.display = 'none';
       document.querySelector('.testInfoButton').style.display = 'none';
