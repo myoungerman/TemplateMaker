@@ -42,16 +42,13 @@ function populateGeneralInformation(form)
 
 function populateTestSpecificInformation(form)
 {
-  // var storedValue = JSON.stringify(form); // Tested what JSON.stringify outputs. Could be useful in other situations.
   var marker = [];
   var fieldName = [];
-  var profileId;
   var img;
   var body = DocumentApp.getActiveDocument().getBody();
 
   switch (form.hiddenTestName)
-  {
-    
+  { 
     case "1": /* "coldSoakVariables" */
       marker = ['{tooling}', '{notes}', '{dwellTemp}', '{dwellTime}', '{minVoltage}', '{maxVoltage}'];
       fieldName = [form.tooling, form.notes, form.dwellTemp, form.dwellTime, form.minVoltage, form.maxVoltage];
@@ -77,8 +74,8 @@ function populateTestSpecificInformation(form)
       fieldName = [form.tooling, form.notes, form.minTemp, form.maxTemp, form.dwellTime, form.shockEvents];  
       break;
     case "7": /*"enduranceVibrationVariables"*/ 
-      marker = ['{notes}', '{enduranceProfiles}']; // No tooling
-      console.log(toString(form.hiddenTestName.enduranceProfiles.value));
+      marker = ['{notes}'];
+      /*
       switch (form.enduranceProfiles.value) // TO DO: Add appropriate links to the HTML form for this test.
       {
         case "1A":
@@ -89,13 +86,29 @@ function populateTestSpecificInformation(form)
           console.log("Zoot has been appended")
           body.appendImage(imgBlob);
           break;
-      }
-      fieldName = [form.notes, form.enduranceProfiles.value];
+      } */
+      fieldName = [form.notes];
+      break;
+    case "8": /* "chemicalExposureVariables" */
+      marker = ['{notes}'];
+      fieldName = [form.notes];
+      break;
+    case "9": /* "functionalVibrationVariables" */
+      marker = ['{notes}'];
+      fieldName = [form.notes];
+      break;
+    case "10": /* "istaDropVariables" */
+      marker = ['{tooling}', '{notes}'];
+      fieldName = [form.tooling, form.notes];
+      break;
+    case "11": /* "transitDropVariables" */
+      marker = ['{tooling}', '{notes}'];
+      fieldName = [form.tooling, form.notes];
       break;
   }
     for (i=0; i<marker.length; ++i)
     {
-      if (fieldName[i] != "" && form.hiddenTestName != "7")
+      if (fieldName[i] != "")
       {
         body.replaceText(marker[i], fieldName[i]); // First argument is the location in the document. Second argument is the matching text field on the sidebar.
       }
@@ -151,6 +164,7 @@ function appendTest(testID)
   var templateBody = templateDoc.getBody();
   var sizeOfItems = {};
   sizeOfItems[DocumentApp.Attribute.FONT_SIZE] = 10;
+  var numChildren = templateBody.getNumChildren();
 
   for (var i = 0; i < templateBody.getNumChildren(); i++)
   { // Run through the elements of the template doc's Body.
