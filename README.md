@@ -1,2 +1,5 @@
 # TemplateMaker
-Google Apps script for auto generating engineering templates and documentation.
+Author: VerumEmanio
+Proofreader: Dorrzun
+
+This is a Google Docs document-bound script that uses the user's input to auto-generate a test plan for Trimble's components lab.
