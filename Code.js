@@ -44,7 +44,6 @@ function populateTestSpecificInformation(form)
 {
   var marker = [];
   var fieldName = [];
-  var img;
   var body = DocumentApp.getActiveDocument().getBody();
 
   switch (form.hiddenTestName)

@@ -33,15 +33,15 @@ padding-left: 15px;
     <select name="tests">
       <option value="chemicalExposure">Chemical Exposure</option>
       <option value="coldSoak">Cold Soak</option> 
-      <option value="coldStorage">Cold Storage</option> 
+      <option value="coldStorage">Cold Storage</option>
+      <option value="transitDrop">Drop Testing</option> <!--Originally listed as Transit Drop. I'm not going to change the value right now because it's not worth the time.--> 
       <option value="enduranceVibration">Endurance (Survivability) Vibration</option>
-      <option value="functionalVibration">Functional (Operational) Vibration</option>
       <option value="hotSoak">Hot Soak</option> 
       <option value="hotStorage">Hot Storage</option> 
-      <option value="istaDrop">ISTA Drop</option>
+      <option value="istaDrop">ISTA Drop</option> 
+      <option value="functionalVibration">ISTA Vibration</option> <!--Originally listed as Functional Vibration. I'm not going to change the value right now because it's not worth the time.-->
       <option value="thermalCycle">Thermal Cycle</option> 
       <option value="thermalShock">Thermal Shock</option> 
-      <option value="transitDrop">Transit Drop</option>
    </select>
   </form>
     <input type="button" class="action" onclick="formSubmit()" value="Add test" />
@@ -169,7 +169,7 @@ padding-left: 15px;
     <input type="hidden" name="hiddenTestName" value = "8"/>
   </form>
   <form id="functionalVibrationVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this functional vibration test:</p>
+    <p class="promptForInfo">Tell me more about this ISTA vibration test:</p>
     <p>What notes or expected results do you have?</p>
     <textarea name="notes" cols="25"></textarea>
     <input type="hidden" name="hiddenTestName" value = "9"/>
@@ -183,7 +183,7 @@ padding-left: 15px;
     <input type="hidden" name="hiddenTestName" value = "10"/>
   </form>
   <form id="transitDropVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this transit drop test:</p>
+    <p class="promptForInfo">Tell me more about this drop test:</p>
     <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
     <textarea name="tooling" cols="25"></textarea>
     <p>What notes or expected results do you have?</p>
