@@ -41,7 +41,8 @@ padding-left: 15px;
       <option value="istaDrop">ISTA Drop</option> 
       <option value="functionalVibration">ISTA Vibration</option> <!--Originally listed as Functional Vibration. I'm not going to change the value right now because it's not worth the time.-->
       <option value="thermalCycle">Thermal Cycle</option> 
-      <option value="thermalShock">Thermal Shock</option> 
+      <option value="thermalShock">Thermal Shock</option>
+      <option value="userDefined">User Defined</option> 
    </select>
   </form>
     <input type="button" class="action" onclick="formSubmit()" value="Add test" />
@@ -138,10 +139,11 @@ padding-left: 15px;
     <input type="text" name="shockEvents" value="">
     <input type="hidden" name="hiddenTestName" value = "6"/> 
   </form>
-  <form id="enduranceVibrationVariables" class="toggleForm"> <!--TO DO: Add bulleted list that insert the different profiles as images -->
+  <form id="enduranceVibrationVariables" class="toggleForm">
     <p class="promptForInfo">Tell me more about this endurance (survivability) vibration test:</p>
     <p>What notes or expected results do you have?</p>
     <textarea name="notes" cols="25"></textarea>
+    <!--
     <p>What vibration profile do you want to use?</p>
     <select name="enduranceProfiles">
       <option value="1A">1A</option>
@@ -160,6 +162,7 @@ padding-left: 15px;
       <option value="11">11</option>
       <option value="12">12</option>
     </select>
+    -->
     <input type="hidden" name="hiddenTestName" value = "7"/>
   </form>
   <form id="chemicalExposureVariables" class="toggleForm">
@@ -198,6 +201,8 @@ padding-left: 15px;
   
   function formSubmit()
     {
+      if (document.forms[0].tests.value != "userDefined")
+      {
       var selectedTest = document.forms[0].tests.value + "Variables"; // Tell us what test was selected from the drop-down.
         if (lastTest != "") // If there was a last test, hide its fields.
         {  
@@ -207,21 +212,22 @@ padding-left: 15px;
         lastTest = selectedTest; // Store the selected test in memory as our last test so we can identify it the next time the user clicks "Add test".
         document.getElementById(selectedTest).style.display = 'block';
         document.querySelector('.testInfoButton').style.display = 'block';
+      }
       google.script.run.addNewTest(document.forms[0]);
     }
 
     function submitSpecificTestInformation()
     {
-      var formNames = new Map([["coldSoakVariables", 1], ["hotSoakVariables", 2], ["hotStorageVariables", 3],
-      ["coldStorageVariables", 4], ["thermalCycleVariables", 5], ["thermalShockVariables", 6],
-      ["enduranceVibrationVariables", 7], ["chemicalExposureVariables", 8], ["functionalVibrationVariables", 9],
-      ["istaDropVariables", 10], ["transitDropVariables", 11]]);
+        var formNames = new Map([["coldSoakVariables", 1], ["hotSoakVariables", 2], ["hotStorageVariables", 3],
+        ["coldStorageVariables", 4], ["thermalCycleVariables", 5], ["thermalShockVariables", 6],
+        ["enduranceVibrationVariables", 7], ["chemicalExposureVariables", 8], ["functionalVibrationVariables", 9],
+        ["istaDropVariables", 10], ["transitDropVariables", 11]]);
 
-      var selectedTest = document.forms[0].tests.value + "Variables";
-      var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
-      google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
-      document.getElementById(selectedTest).style.display = 'none';
-      document.querySelector('.testInfoButton').style.display = 'none';
+        var selectedTest = document.forms[0].tests.value + "Variables";
+        var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
+        google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
+        document.getElementById(selectedTest).style.display = 'none';
+        document.querySelector('.testInfoButton').style.display = 'none';
     }
   </script> 
       </html>

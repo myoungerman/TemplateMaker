@@ -74,18 +74,6 @@ function populateTestSpecificInformation(form)
       break;
     case "7": /*"enduranceVibrationVariables"*/ 
       marker = ['{notes}'];
-      /*
-      switch (form.enduranceProfiles.value) // TO DO: Add appropriate links to the HTML form for this test.
-      {
-        case "1A":
-          img = getUrl('https://drive.google.com/drive/u/0/folders/1UBJv5pBRDMsnB7RDTX6gHGhgyTSSWANF');
-          console.log("Appending Zoot")
-          var imgBlob = img.getAs('image/jpeg');         
-          body.appendParagraph("Zoot");
-          console.log("Zoot has been appended")
-          body.appendImage(imgBlob);
-          break;
-      } */
       fieldName = [form.notes];
       break;
     case "8": /* "chemicalExposureVariables" */
@@ -151,7 +139,10 @@ function addNewTest(form)
       break;
     case "transitDrop":
       appendTest('https://docs.google.com/document/d/1LvmJm6EVaJkp0D2ZrqGiyUD8oDWLpco9nU1ohgh6ems/edit');
-      break;        
+      break;
+    case "userDefined":
+      appendTest('https://docs.google.com/document/d/1xRd1Cn_6zIMeH-tmcAxBZgPSzO605cfQaviyoGXuUUk/edit');
+      break;          
   }
 }
 
