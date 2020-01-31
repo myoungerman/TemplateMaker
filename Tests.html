@@ -225,9 +225,17 @@ padding-left: 15px;
 
         var selectedTest = document.forms[0].tests.value + "Variables";
         var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
-        google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
-        document.getElementById(selectedTest).style.display = 'none';
-        document.querySelector('.testInfoButton').style.display = 'none';
+        if ((document.forms[index].hiddenTestName.value != "8" || document.forms[index].hiddenTestName.value != "9") && (document.forms[index].tooling.value = "" || document.forms[index].notes.value == "")) // Check for blank text boxes. The selected form determines which boxes are checked.
+        {
+          window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
+          } else if ((document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9") && document.forms[index].notes.value == "")
+          {
+          window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
+          } else {
+          google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
+          document.getElementById(selectedTest).style.display = 'none';
+          document.querySelector('.testInfoButton').style.display = 'none';
+        }
     }
   </script> 
       </html>
