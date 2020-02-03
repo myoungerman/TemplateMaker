@@ -28,7 +28,7 @@ function populateGeneralInformation(form)
   var marker = ['{Test Plan Name}', '{Name}', '{Date}', '{Jira #}', '{Part name}', '{Part number}', '{Project name}', '{testSummary}'];
   var fieldName = [form.testPlanName, form.fullName, form.date, form.jiraTicketNumber, form.partName, form.partNumber, form.projectName, form.testSummary]; // I learned that arrays can store a class with a property, like form.fullName. Arrays can store any data type!
   var body = DocumentApp.getActiveDocument().getBody();
-  var footer = DocumentApp.getActiveDocument().getFooter().getParent().getChild(4); // Because the first page has a different footer, DocumentApp.getActiveDocument().getFooter(); would check only the first page. // TO DO: Figure out why getChild is 4. 
+  var footer = DocumentApp.getActiveDocument().getFooter().getParent().getChild(4); // Because the first page has a different footer, DocumentApp.getActiveDocument().getFooter(); would check only the first page.
   for (i=0; i<marker.length; i++)
   {
     if (fieldName[i] != "")
@@ -75,6 +75,7 @@ function populateTestSpecificInformation(form)
     case "7": /*"enduranceVibrationVariables"*/ 
       marker = ['{notes}'];
       fieldName = [form.notes];
+      console.log("The selected profile was " + form.enduranceProfiles.value);
       break;
     case "8": /* "chemicalExposureVariables" */
       marker = ['{notes}'];

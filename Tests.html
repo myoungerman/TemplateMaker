@@ -143,26 +143,24 @@ padding-left: 15px;
     <p class="promptForInfo">Tell me more about this endurance (survivability) vibration test:</p>
     <p>What notes or expected results do you have?</p>
     <textarea name="notes" cols="25"></textarea>
-    <!--
     <p>What vibration profile do you want to use?</p>
     <select name="enduranceProfiles">
-      <option value="1A">1A</option>
-      <option value="1B">1B</option>
-      <option value="2A">2A</option>
-      <option value="2B">2B</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5A">5A</option>
-      <option value="5B">5B</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
+      <option value="1A">1A/A.1</option>
+      <option value="1B">1B/A.2</option>
+      <option value="2A">2A/B.1</option>
+      <option value="2B">2B/B.2</option>
+      <option value="3">3/C</option>
+      <option value="4">4/D</option>
+      <option value="5A">5A/E.1</option>
+      <option value="5B">5B/E.2</option>
+      <option value="6">6/F</option>
+      <option value="7">7/G</option>
+      <option value="8">8/H</option>
+      <option value="9">9/I</option>
+      <option value="10">10/J</option>
+      <option value="11">11/K</option>
+      <option value="12">12/L</option>
     </select>
-    -->
     <input type="hidden" name="hiddenTestName" value = "7"/>
   </form>
   <form id="chemicalExposureVariables" class="toggleForm">
@@ -225,10 +223,10 @@ padding-left: 15px;
 
         var selectedTest = document.forms[0].tests.value + "Variables";
         var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
-        if ((document.forms[index].hiddenTestName.value != "8" || document.forms[index].hiddenTestName.value != "9") && (document.forms[index].tooling.value = "" || document.forms[index].notes.value == "")) // Check for blank text boxes. The selected form determines which boxes are checked.
+        if ((document.forms[index].hiddenTestName.value != "8" || document.forms[index].hiddenTestName.value != "9") && (document.forms[index].tooling.value = "" || document.forms[index].notes.value == "")) // Check for blank text boxes on forms that have fields for both tooling and notes.
         {
           window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
-          } else if ((document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9") && document.forms[index].notes.value == "")
+          } else if ((document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9") && document.forms[index].notes.value == "") // Check for blank text boxes on forms that have a field for notes.
           {
           window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
           } else {
