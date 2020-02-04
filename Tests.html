@@ -142,7 +142,7 @@ padding-left: 15px;
   <form id="enduranceVibrationVariables" class="toggleForm">
     <p class="promptForInfo">Tell me more about this endurance (survivability) vibration test:</p>
     <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
+    <textarea name="notes" cols="25"></textarea> <!--
     <p>What vibration profile do you want to use?</p>
     <select name="enduranceProfiles">
       <option value="1A">1A/A.1</option>
@@ -160,7 +160,7 @@ padding-left: 15px;
       <option value="10">10/J</option>
       <option value="11">11/K</option>
       <option value="12">12/L</option>
-    </select>
+    </select> -->
     <input type="hidden" name="hiddenTestName" value = "7"/>
   </form>
   <form id="chemicalExposureVariables" class="toggleForm">
@@ -220,16 +220,19 @@ padding-left: 15px;
         ["coldStorageVariables", 4], ["thermalCycleVariables", 5], ["thermalShockVariables", 6],
         ["enduranceVibrationVariables", 7], ["chemicalExposureVariables", 8], ["functionalVibrationVariables", 9],
         ["istaDropVariables", 10], ["transitDropVariables", 11]]);
-
         var selectedTest = document.forms[0].tests.value + "Variables";
         var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
+        console.log("The notes value of hiddentestName " + index + " is " + document.forms[index].notes.value);
         if ((document.forms[index].hiddenTestName.value != "7" || document.forms[index].hiddenTestName.value != "8" || document.forms[index].hiddenTestName.value != "9") && (document.forms[index].tooling.value = "" || document.forms[index].notes.value == "")) // Check for blank text boxes on forms that have fields for both tooling and notes.
         {
+          console.log("first part of the statement");
           window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
           } else if ((document.forms[index].hiddenTestName.value == "7" || document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9") && document.forms[index].notes.value == "") // Check for blank text boxes on forms that have a field for notes.
           {
+            console.log("second part of the statement");
           window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
           } else {
+            console.log("Running the script.");  
           google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
           document.getElementById(selectedTest).style.display = 'none';
           document.querySelector('.testInfoButton').style.display = 'none';
