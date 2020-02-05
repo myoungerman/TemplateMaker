@@ -75,7 +75,6 @@ function populateTestSpecificInformation(form)
     case "7": /*"enduranceVibrationVariables"*/ 
       marker = ['{notes}'];
       fieldName = [form.notes];
-      console.log("The selected profile was " + form.enduranceProfiles.value);
       break;
     case "8": /* "chemicalExposureVariables" */
       marker = ['{notes}'];
