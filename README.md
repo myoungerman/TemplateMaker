@@ -1,6 +1,6 @@
 # Template Generator
 <strong>Primary author:</strong> VerumEmanio <br>
-<strong>Secondary author & proofreader:</strong> Dorrzun
+<strong>Proofreader:</strong> Dorrzun
 
 This is a Google Docs document-bound script that uses the engineer's input to auto-generate a test plan for Trimble's components lab.
 
