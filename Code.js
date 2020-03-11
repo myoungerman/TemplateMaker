@@ -1,3 +1,5 @@
+var email = Session.getActiveUser().getEmail(); // Get the user's email.
+
 function onOpen()
 {
   DocumentApp.getUi()
@@ -13,6 +15,7 @@ function opentitlePageDialog()
   html.setTitle("Add Title Page Information"); // Set the title of the sidebar.
   DocumentApp.getUi() 
       .showSidebar(html); // Display the HTML file as a sidebar.
+  accessDatabase();
 }
 
 function openTestDialog()
@@ -196,12 +199,11 @@ function appendTest(testID)
 function nameFile(type, number, name, date)
 {
   DocumentApp.getActiveDocument().setName(type + " - " + number + " - " + name + " - " + date);
-  accessDatabase();
 }
 
 function accessDatabase() 
 {
   var database = FirebaseApp.getDatabaseByUrl("https://ctct-environmental-test-plans.firebaseio.com/", "xTw3pwH5Gt8lZk4t9FgA2hpTtblfz0J7azfnM2sD");
-  console.log(database.getData("masterSheet"));
-
+  email = email.split("@", 1); // Remove the special character @ and the remainder of the string to avoid a token error.
+  console.log(database.getData(email));
 }
