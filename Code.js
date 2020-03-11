@@ -166,7 +166,7 @@ function appendTest(testID)
       case DocumentApp.ElementType.LIST_ITEM:
         var typeOfList = templateBody.getChild(i).getGlyphType(); // Determine the type of the list item. Returns an object.
         var typeOfListAsString = JSON.stringify(typeOfList); // Convert the type from an object to a string that will be used in the if statement.
-        console.log("This list item is a " + typeOfListAsString); // TO DO: Figure out why this if statement isn't working. It keeps adding numbers where there should be bullets.
+        console.log("This list item is a " + typeOfListAsString);
         if (typeOfListAsString = "NUMBER")
         {
           var item = thisBody.appendListItem(templateBody.getChild(i).copy())
@@ -196,4 +196,12 @@ function appendTest(testID)
 function nameFile(type, number, name, date)
 {
   DocumentApp.getActiveDocument().setName(type + " - " + number + " - " + name + " - " + date);
+  accessDatabase();
+}
+
+function accessDatabase() 
+{
+  var database = FirebaseApp.getDatabaseByUrl("https://ctct-environmental-test-plans.firebaseio.com/", "xTw3pwH5Gt8lZk4t9FgA2hpTtblfz0J7azfnM2sD");
+  console.log(database.getData("masterSheet"));
+
 }
