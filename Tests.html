@@ -37,14 +37,14 @@ padding-left: 15px;
       <option value="transitDrop">Drop Testing</option> <!--Originally listed as Transit Drop. I'm not going to change the value right now because it's not worth the time.--> 
       <option value="enduranceVibration">Endurance (Survivability) Vibration</option>
       <option value="hotSoak">Hot Soak</option> 
-      <option value="hotStorage">Hot Storage</option> 
+      <option value="hotStorage">Hot Storage</option>
+      <option value="humidityTolerance">Humidity Tolerance</option> 
       <option value="istaDrop">ISTA Drop</option> 
       <option value="functionalVibration">ISTA Vibration</option> <!--Originally listed as Functional Vibration. I'm not going to change the value right now because it's not worth the time.-->
       <option value="thermalCycle">Thermal Cycle</option> 
       <option value="thermalShock">Thermal Shock</option>
       <option value="userDefined">User Defined</option> 
    </select>
-   <!-- <iframe src="https://drive.google.com/drive/u/0/folders/0ANb2xZjYYYr5Uk9PVA" height="200" width="300"></iframe> -->
   </form>
     <input type="button" class="action" onclick="formSubmit()" value="Add test" />
 <!--These are prompts for test specific information-->
@@ -192,6 +192,18 @@ padding-left: 15px;
     <textarea name="notes" cols="25"></textarea>
     <input type="hidden" name="hiddenTestName" value = "11"/>
   </form>
+  <form id="humidityToleranceVariables" class="toggleForm">
+    <p class="promptForInfo">Tell me more about this humidity tolerance test:</p>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
+    <p>How many humidity cycles are there?</p>
+    <input type="text" name="cycles" value="">
+    <p>How long are the humidity cycles in hours?</p>
+    <input type="text" name="cycleTime" value="">
+    <p>How long is the dwell time in hours?</p>
+    <input type="text" name="dwellTime" value="">
+    <input type="hidden" name="hiddenTestName" value = "12"/>
+  </form>
   <input type="button" class="action testInfoButton" onclick="submitSpecificTestInformation()" value="Submit information for this test" /> 
   </body>
   
@@ -220,13 +232,13 @@ padding-left: 15px;
         var formNames = new Map([["coldSoakVariables", 1], ["hotSoakVariables", 2], ["hotStorageVariables", 3],
         ["coldStorageVariables", 4], ["thermalCycleVariables", 5], ["thermalShockVariables", 6],
         ["enduranceVibrationVariables", 7], ["chemicalExposureVariables", 8], ["functionalVibrationVariables", 9],
-        ["istaDropVariables", 10], ["transitDropVariables", 11]]);
+        ["istaDropVariables", 10], ["transitDropVariables", 11], ["humidityToleranceVariables", 12]]);
         var selectedTest = document.forms[0].tests.value + "Variables";
         var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
-        if ((document.forms[index].hiddenTestName.value != "7" && document.forms[index].hiddenTestName.value != "8" && document.forms[index].hiddenTestName.value != "9") && (document.forms[index].tooling.value == "" || document.forms[index].notes.value == "")) // Check for blank text boxes on forms that have fields for both tooling and notes.
+        if ((document.forms[index].hiddenTestName.value != "7" && document.forms[index].hiddenTestName.value != "8" && document.forms[index].hiddenTestName.value != "9" && document.forms[index].hiddenTestName.value != "12") && (document.forms[index].tooling.value == "" || document.forms[index].notes.value == "")) // Check for blank text boxes on forms that have fields for both tooling and notes.
         {
           window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
-          } else if ((document.forms[index].hiddenTestName.value == "7" || document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9") && document.forms[index].notes.value == "") // Check for blank text boxes on forms that have a field for notes.
+          } else if ((document.forms[index].hiddenTestName.value == "7" || document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9" || document.forms[index].hiddenTestName.value == "12") && document.forms[index].notes.value == "") // Check for blank text boxes on forms that have a field for notes.
           {
           window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
           } else {

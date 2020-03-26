@@ -15,7 +15,7 @@ function opentitlePageDialog()
   html.setTitle("Add Title Page Information"); // Set the title of the sidebar.
   DocumentApp.getUi() 
       .showSidebar(html); // Display the HTML file as a sidebar.
-  accessDatabase();
+  //accessDatabase();
 }
 
 function openTestDialog()
@@ -95,6 +95,10 @@ function populateTestSpecificInformation(form)
       marker = ['{tooling}', '{notes}'];
       fieldName = [form.tooling, form.notes];
       break;
+    case "12": /* humidityToleranceVariables*/
+    marker = ['{notes}', '{cycles}', '{cycleTime}', '{dwellTime}'];
+    fieldName = [form.notes, form.cycles, form.cycleTime, form.dwellTime];
+    break;
   }
     for (i=0; i<marker.length; ++i)
     {
@@ -145,6 +149,9 @@ function addNewTest(form)
       break;
     case "userDefined":
       appendTest('https://docs.google.com/document/d/1xRd1Cn_6zIMeH-tmcAxBZgPSzO605cfQaviyoGXuUUk/edit');
+      break;
+    case "humidityTolerance":
+      appendTest('https://docs.google.com/document/d/1qYYNoMIdfjbaSpwEVouJIODRPGIe44xwdiOX4D7fQF0/edit#')
       break;          
   }
 }
@@ -169,18 +176,14 @@ function appendTest(testID)
       case DocumentApp.ElementType.LIST_ITEM:
         var typeOfList = templateBody.getChild(i).getGlyphType(); // Determine the type of the list item. Returns an object.
         var typeOfListAsString = JSON.stringify(typeOfList); // Convert the type from an object to a string that will be used in the if statement.
-        console.log("This list item is a " + typeOfListAsString);
         if (typeOfListAsString = "NUMBER")
         {
-          var item = thisBody.appendListItem(templateBody.getChild(i).copy())
+          var item = thisBody.appendListItem(templateBody.getChild(i).copy());
           item.setAttributes(sizeOfItems);
-          console.log("set size");
           item.setGlyphType(DocumentApp.GlyphType.NUMBER);
-          console.log("set number");
         } else if (typeOfListAsString = "BULLET")
         {
           thisBody.appendListItem(templateBody.getChild(i).copy()).setGlyphType(DocumentApp.GlyphType.BULLET);
-          console.log("added a bullet");
         } else {
           thisBody.appendListItem(templateBody.getChild(i).copy()).setGlyphType(DocumentApp.GlyphType.LATIN_LOWER);
         }
@@ -193,7 +196,7 @@ function appendTest(testID)
         break;
     }
   }
-  thisBody.appendPageBreak(); // Add a page break once the whole test has been copied.
+  thisBody.appendPageBreak(); // Add a page break once the entire test has been copied.
 }
 
 function nameFile(type, number, name, date)
@@ -205,5 +208,6 @@ function accessDatabase()
 {
   var database = FirebaseApp.getDatabaseByUrl("https://ctct-environmental-test-plans.firebaseio.com/", "xTw3pwH5Gt8lZk4t9FgA2hpTtblfz0J7azfnM2sD");
   email = email.split("@", 1); // Remove the special character @ and the remainder of the string to avoid a token error.
-  console.log(database.getData(email));
+  var filterData = database.getData(email);
+  console.log(filterData.indexOf("sample text"));
 }
