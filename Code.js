@@ -99,6 +99,10 @@ function populateTestSpecificInformation(form)
     marker = ['{notes}', '{cycles}', '{cycleTime}', '{dwellTime}'];
     fieldName = [form.notes, form.cycles, form.cycleTime, form.dwellTime];
     break;
+    case "13": /* corrosionVariables*/
+    marker = ['{notes}', '{days}', '{cycles}'];
+    fieldName = [form.notes, form.days, form.cycles];
+    break;
   }
     for (i=0; i<marker.length; ++i)
     {
@@ -152,6 +156,9 @@ function addNewTest(form)
       break;
     case "humidityTolerance":
       appendTest('https://docs.google.com/document/d/1qYYNoMIdfjbaSpwEVouJIODRPGIe44xwdiOX4D7fQF0/edit#')
+      break;
+    case "corrosion":
+      appendTest('https://docs.google.com/document/d/15o-8TEO7IkKZgzghOEFed5YeUzcE2VdsEcPXQ09wewo/edit#')
       break;          
   }
 }

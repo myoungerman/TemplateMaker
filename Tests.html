@@ -31,6 +31,7 @@ padding-left: 15px;
   <form id="generalInformation">
     <p>Select the desired test from the drop-down:</p>
     <select name="tests">
+      <option value="corrosion">Accelerated Corrosion J2334</option>
       <option value="chemicalExposure">Chemical Exposure</option>
       <option value="coldSoak">Cold Soak</option> 
       <option value="coldStorage">Cold Storage</option>
@@ -204,6 +205,16 @@ padding-left: 15px;
     <input type="text" name="dwellTime" value="">
     <input type="hidden" name="hiddenTestName" value = "12"/>
   </form>
+  <form id="corrosionVariables" class="toggleForm">
+    <p class="promptForInfo">Tell me more about this accelerated corrosion test:</p>
+    <p>What notes or expected results do you have?</p>
+    <textarea name="notes" cols="25"></textarea>
+    <p>For how many days should this test be run?</p>
+    <input type="text" name="days" value="">
+    <p>How many cycles is that?</p>
+    <input type="text" name="cycles" value="">
+    <input type="hidden" name="hiddenTestName" value = "13"/>
+  </form>
   <input type="button" class="action testInfoButton" onclick="submitSpecificTestInformation()" value="Submit information for this test" /> 
   </body>
   
@@ -232,13 +243,13 @@ padding-left: 15px;
         var formNames = new Map([["coldSoakVariables", 1], ["hotSoakVariables", 2], ["hotStorageVariables", 3],
         ["coldStorageVariables", 4], ["thermalCycleVariables", 5], ["thermalShockVariables", 6],
         ["enduranceVibrationVariables", 7], ["chemicalExposureVariables", 8], ["functionalVibrationVariables", 9],
-        ["istaDropVariables", 10], ["transitDropVariables", 11], ["humidityToleranceVariables", 12]]);
+        ["istaDropVariables", 10], ["transitDropVariables", 11], ["humidityToleranceVariables", 12], ["corrosionVariables", 13]]);
         var selectedTest = document.forms[0].tests.value + "Variables";
         var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
-        if ((document.forms[index].hiddenTestName.value != "7" && document.forms[index].hiddenTestName.value != "8" && document.forms[index].hiddenTestName.value != "9" && document.forms[index].hiddenTestName.value != "12") && (document.forms[index].tooling.value == "" || document.forms[index].notes.value == "")) // Check for blank text boxes on forms that have fields for both tooling and notes.
+        if ((document.forms[index].hiddenTestName.value != "7" && document.forms[index].hiddenTestName.value != "8" && document.forms[index].hiddenTestName.value != "9" && document.forms[index].hiddenTestName.value != "12" && document.forms[index].hiddenTestName.value != "13") && (document.forms[index].tooling.value == "" || document.forms[index].notes.value == "")) // Check for blank text boxes on forms that have fields for both tooling and notes.
         {
           window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
-          } else if ((document.forms[index].hiddenTestName.value == "7" || document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9" || document.forms[index].hiddenTestName.value == "12") && document.forms[index].notes.value == "") // Check for blank text boxes on forms that have a field for notes.
+          } else if ((document.forms[index].hiddenTestName.value == "7" || document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9" || document.forms[index].hiddenTestName.value == "12" || document.forms[index].hiddenTestName.value == "13") && document.forms[index].notes.value == "") // Check for blank text boxes on forms that have a field for notes.
           {
           window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
           } else {
