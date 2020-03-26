@@ -171,7 +171,6 @@ function appendTest(testID)
   var templateBody = templateDoc.getBody();
   var sizeOfItems = {};
   sizeOfItems[DocumentApp.Attribute.FONT_SIZE] = 10;
-  var numChildren = templateBody.getNumChildren();
 
   for (var i = 0; i < templateBody.getNumChildren(); i++)
   { // Run through the elements of the template doc's Body.
@@ -203,6 +202,10 @@ function appendTest(testID)
         break;
     }
   }
+  var doc = DocumentApp.getActiveDocument();
+  var paragraphs = doc.getBody().getParagraphs();
+  var position = doc.newPosition(paragraphs[paragraphs.length-1], 0);
+  doc.setCursor(position);
   thisBody.appendPageBreak(); // Add a page break once the entire test has been copied.
 }
 
