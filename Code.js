@@ -38,7 +38,7 @@ function populateGeneralInformation(form)
     }
   }
   nameFile(form.testPlanName, form.partNumber, form.partName, form.date);
-  storeData(form.date, form.testPlanName);
+  storeData(form.date);
 }
 
 function populateTestSpecificInformation(form)
@@ -212,18 +212,21 @@ function nameFile(type, number, name, date)
   DocumentApp.getActiveDocument().setName(type + " - " + number + " - " + name + " - " + date);
 }
 
-function storeData(date, docName) 
+function storeData() 
 {
   var database = FirebaseApp.getDatabaseByUrl("https://ctct-environmental-test-plans.firebaseio.com/", "xTw3pwH5Gt8lZk4t9FgA2hpTtblfz0J7azfnM2sD");
   var email = Session.getActiveUser().getEmail(); // Get the user's email.
-  var date = date;
-  var docName = docName;
+  var date = new Date();
+  var docName = DocumentApp.getActiveDocument().getName();
+  var storageLocation = '';
+
+  date = date.getMonth() + date.getDay() + date.getFullYear();
   var userInfo = {
     email: email,
     date: date,
     docName: docName
   }
-
-  email = email.split("@", 1); // Remove the special character @ and the remainder of the string to avoid a token error.
-  database.setData("", userInfo);
+  email = email.split("@", 1);
+  storageLocation = email + Math.round(Math.random() * 10000).toString();
+  database.setData(storageLocation, userInfo);
 }
