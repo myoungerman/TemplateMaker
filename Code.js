@@ -1,5 +1,3 @@
-var email = Session.getActiveUser().getEmail(); // Get the user's email.
-
 function onOpen()
 {
   DocumentApp.getUi()
@@ -15,7 +13,6 @@ function opentitlePageDialog()
   html.setTitle("Add Title Page Information"); // Set the title of the sidebar.
   DocumentApp.getUi() 
       .showSidebar(html); // Display the HTML file as a sidebar.
-  //accessDatabase();
 }
 
 function openTestDialog()
@@ -41,6 +38,7 @@ function populateGeneralInformation(form)
     }
   }
   nameFile(form.testPlanName, form.partNumber, form.partName, form.date);
+  storeData(form.date);
 }
 
 function populateTestSpecificInformation(form)
@@ -204,7 +202,7 @@ function appendTest(testID)
   }
   var doc = DocumentApp.getActiveDocument();
   var paragraphs = doc.getBody().getParagraphs();
-  var position = doc.newPosition(paragraphs[paragraphs.length-1], 0);
+  var position = doc.newPosition(paragraphs[paragraphs.length - 1], 0);
   doc.setCursor(position);
   thisBody.appendPageBreak(); // Add a page break once the entire test has been copied.
 }
@@ -214,10 +212,21 @@ function nameFile(type, number, name, date)
   DocumentApp.getActiveDocument().setName(type + " - " + number + " - " + name + " - " + date);
 }
 
-function accessDatabase() 
+function storeData() 
 {
   var database = FirebaseApp.getDatabaseByUrl("https://ctct-environmental-test-plans.firebaseio.com/", "xTw3pwH5Gt8lZk4t9FgA2hpTtblfz0J7azfnM2sD");
-  email = email.split("@", 1); // Remove the special character @ and the remainder of the string to avoid a token error.
-  var filterData = database.getData(email);
-  console.log(filterData.indexOf("sample text"));
+  var email = Session.getActiveUser().getEmail(); // Get the user's email.
+  var date = new Date();
+  var docName = DocumentApp.getActiveDocument().getName();
+  var storageLocation = '';
+
+  date = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+  var userInfo = {
+    email: email,
+    date: date,
+    docName: docName
+  }
+  email = email.split("@", 1);
+  storageLocation = email + Math.round(Math.random() * 10000).toString();
+  database.setData(storageLocation, userInfo);
 }
