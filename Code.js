@@ -220,7 +220,7 @@ function storeData()
   var docName = DocumentApp.getActiveDocument().getName();
   var storageLocation = '';
 
-  date = date.getMonth() + date.getDay() + date.getFullYear();
+  date = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
   var userInfo = {
     email: email,
     date: date,
