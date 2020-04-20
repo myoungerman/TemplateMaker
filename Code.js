@@ -207,12 +207,13 @@ function storeData()
   let storageLocation = '';
 
   let day = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-  const userInfo = {
+  var userInfo = {
     email: email,
     date: day,
     docName: docName
   }
   email = email.split('@', 1);
-  storageLocation = email + day + (date.getTime()).toString();
+  storageLocation = (email + date.getTime());
+  console.log(storageLocation);
   database.setData(storageLocation, userInfo);
 }
