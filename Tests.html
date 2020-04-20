@@ -11,9 +11,6 @@ padding-left: 15px;
 #tcVariables {
   display: none;
 }
-.toggleForm {
-  display: none;
-}
 .button, button, input[type="button"], input[type="image"], input[type="reset"], input[type="submit"] {
   margin-top: 15px;
   margin-bottom: 10px;
@@ -35,228 +32,94 @@ padding-left: 15px;
       <option value="chemicalExposure">Chemical Exposure</option>
       <option value="coldSoak">Cold Soak</option> 
       <option value="coldStorage">Cold Storage</option>
-      <option value="transitDrop">Drop Testing</option> <!--Originally listed as Transit Drop. I'm not going to change the value right now because it's not worth the time.--> 
+      <option value="transitDrop">Drop Testing</option> <!--Originally listed as Transit Drop. I'm not going to change the value right now because it\'s not worth the time.--> 
       <option value="enduranceVibration">Endurance (Survivability) Vibration</option>
       <option value="hotSoak">Hot Soak</option> 
       <option value="hotStorage">Hot Storage</option>
       <option value="humidityTolerance">Humidity Tolerance</option> 
       <option value="istaDrop">ISTA Drop</option> 
-      <option value="functionalVibration">ISTA Vibration</option> <!--Originally listed as Functional Vibration. I'm not going to change the value right now because it's not worth the time.-->
+      <option value="functionalVibration">ISTA Vibration</option> <!--Originally listed as Functional Vibration. I'm not going to change the value right now because it\'s not worth the time.-->
       <option value="thermalCycle">Thermal Cycle</option> 
       <option value="thermalShock">Thermal Shock</option>
       <option value="userDefined">User Defined</option> 
    </select>
   </form>
     <input type="button" class="action" onclick="formSubmit()" value="Add test" />
-<!--These are prompts for test specific information-->
-  <form id="coldSoakVariables" class="toggleForm"> 
-    <p class="promptForInfo">Tell me more about this cold soak test:</p>
-    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
-    <textarea name="tooling" cols="25"></textarea>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>What's the dwell temperature?</p>
-    <input type="text" name="dwellTemp" value="" required>
-    <p>How long is the dwell time in hours?</p>
-    <input type="text" name="dwellTime" value="">
-    <p>What's the minimum voltage?</p>
-    <input type="text" name="minVoltage" value="">
-    <p>What's the maximum voltage?</p>
-    <input type="text" name="maxVoltage" value="">
-    <input type="hidden" name="hiddenTestName" value = "1"/> <!--Since form.id only returns undefined in Code.js, this hidden input is how to tell what form we're in-->
-  </form>
-  <form id="hotSoakVariables" class="toggleForm"> 
-    <p class="promptForInfo">Tell me more about this hot soak test:</p>
-    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
-    <textarea name="tooling" cols="25"></textarea>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>What's the dwell temperature?</p>
-    <input type="text" name="dwellTemp" value="">
-    <p>How long is the dwell time in hours?</p>
-    <input type="text" name="dwellTime" value="">
-    <p>What's the minimum voltage?</p>
-    <input type="text" name="minVoltage" value="">
-    <p>What's the maximum voltage?</p>
-    <input type="text" name="maxVoltage" value="">
-    <p>How long will it take in hours for the DUT to achieve steady state temperatures?</p>
-    <input type="text" name="steadyTime" value="">
-    <p>What's the voltage range?</p>
-    <input type="text" name="voltageRange" value="">
-    <input type="hidden" name="hiddenTestName" value = "2"/>
-  </form>
-  <form id="hotStorageVariables" class="toggleForm"> 
-    <p class="promptForInfo">Tell me more about this hot storage test:</p>
-    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
-    <textarea name="tooling" cols="25"></textarea>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>What's the dwell temperature?</p>
-    <input type="text" name="dwellTemp" value="">
-    <p>How long is the dwell time in hours?</p>
-    <input type="text" name="dwellTime" value="">
-    <input type="hidden" name="hiddenTestName" value = "3"/>
-  </form>
-  <form id="coldStorageVariables" class="toggleForm"> 
-    <p class="promptForInfo">Tell me more about this cold storage test:</p>
-    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
-    <textarea name="tooling" cols="25"></textarea>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>What's the dwell temperature?</p>
-    <input type="text" name="dwellTemp" value="">
-    <p>How long is the dwell time in hours?</p>
-    <input type="text" name="dwellTime" value="">
-    <input type="hidden" name="hiddenTestName" value = "4"/>
-  </form>
-  <form id="thermalCycleVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this thermal cycling test:</p>
-    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
-    <textarea name="tooling" cols="25"></textarea>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>What's the minimum temperature?</p>
-    <input type="text" name="minTemp" value="">
-    <p>What's the maximum temperature?</p>
-    <input type="text" name="maxTemp" value="">
-    <p>How long is the dwell time in hours? (Look at the table in the overview.)</p>
-    <input type="text" name="dwellTime" value="">
-    <p>How many cycles are there?</p>
-    <input type="text" name="cycles" value="">
-    <input type="hidden" name="hiddenTestName" value = "5"/> 
-  </form>
-  <form id="thermalShockVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this thermal shock test:</p>
-    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
-    <textarea name="tooling" cols="25"></textarea>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>What's the minimum temperature?</p>
-    <input type="text" name="minTemp" value="">
-    <p>What's the maximum temperature?</p>
-    <input type="text" name="maxTemp" value="">
-    <p>How long is the dwell time in hours?</p>
-    <input type="text" name="dwellTime" value="">
-    <p>How many shock events are there?</p>
-    <input type="text" name="shockEvents" value="">
-    <input type="hidden" name="hiddenTestName" value = "6"/> 
-  </form>
-  <form id="enduranceVibrationVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this endurance (survivability) vibration test:</p>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>What vibration profile do you want to use?</p>
-    <select name="enduranceProfiles">
-      <option value="A.1">1A/A.1</option>
-      <option value="A.2">1B/A.2</option>
-      <option value="B.1">2A/B.1</option>
-      <option value="B.2">2B/B.2</option>
-      <option value="C">3/C</option>
-      <option value="D">4/D</option>
-      <option value="E.1">5A/E.1</option>
-      <option value="E.2">5B/E.2</option>
-      <option value="F">6/F</option>
-      <option value="G">7/G</option>
-      <option value="H">8/H</option>
-      <option value="I">9/I</option>
-      <option value="J">10/J</option>
-      <option value="K">11/K</option>
-      <option value="L">12/L</option>
-    </select>
-    <input type="hidden" name="hiddenTestName" value = "7"/>
-  </form>
-  <form id="chemicalExposureVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this chemical exposure test:</p>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <input type="hidden" name="hiddenTestName" value = "8"/>
-  </form>
-  <form id="functionalVibrationVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this ISTA vibration test:</p>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <input type="hidden" name="hiddenTestName" value = "9"/>
-  </form>
-  <form id="istaDropVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this ISTA drop test:</p>
-    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
-    <textarea name="tooling" cols="25"></textarea>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <input type="hidden" name="hiddenTestName" value = "10"/>
-  </form>
-  <form id="transitDropVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this drop test:</p>
-    <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p>
-    <textarea name="tooling" cols="25"></textarea>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <input type="hidden" name="hiddenTestName" value = "11"/>
-  </form>
-  <form id="humidityToleranceVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this humidity tolerance test:</p>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>How many humidity cycles are there?</p>
-    <input type="text" name="cycles" value="">
-    <p>How long are the humidity cycles in hours?</p>
-    <input type="text" name="cycleTime" value="">
-    <p>How long is the dwell time in hours?</p>
-    <input type="text" name="dwellTime" value="">
-    <input type="hidden" name="hiddenTestName" value = "12"/>
-  </form>
-  <form id="corrosionVariables" class="toggleForm">
-    <p class="promptForInfo">Tell me more about this accelerated corrosion test:</p>
-    <p>What notes or expected results do you have?</p>
-    <textarea name="notes" cols="25"></textarea>
-    <p>For how many days should this test be run?</p>
-    <input type="text" name="days" value="">
-    <p>How many cycles is that?</p>
-    <input type="text" name="cycles" value="">
-    <input type="hidden" name="hiddenTestName" value = "13"/>
-  </form>
+
   <input type="button" class="action testInfoButton" onclick="submitSpecificTestInformation()" value="Submit information for this test" /> 
   </body>
   
   <script type="text/javascript">
-  var lastTest = "";
-  
+
+  let lastTest = "";
+  var htmlAsString = {
+    coldSoakVariables: '<span id="coldSoakVariables"><p class="promptForInfo">Tell me more about this cold soak test:</p><p>List any required tooling or fixtures, including part #s in Agile if applicable:</p><textarea name="tooling" class="tooling" cols="25"></textarea><p>What notes or expected results do you have?</p>     <textarea name="notes" class="notes" cols="25"></textarea><p>What\'s the dwell temperature?</p><input type="text" name="dwellTemp" value="" required><p>How long is the dwell time in hours?</p><input type="text" name="dwellTime" value=""><p>What\'s the minimum voltage?</p><input type="text" name="minVoltage" value=""><p>What\'s the maximum voltage?</p><input type="text" name="maxVoltage" value=""><input type="hidden" name="hiddenTestName" value = "1"/></span>',
+    hotSoakVariables: '<span id="hotSoakVariables"><p class="promptForInfo">Tell me more about this hot soak test:</p><p>List any required tooling or fixtures, including part #s in Agile if applicable:</p><textarea name="tooling" class="tooling" cols="25"></textarea><p>What notes or expected results do you have?</p><textarea name="notes" class="notes" cols="25"></textarea><p>What\'s the dwell temperature?</p><input type="text" name="dwellTemp" value=""><p>How long is the dwell time in hours?</p><input type="text" name="dwellTime" value=""><p>What\'s the minimum voltage?</p><input type="text" name="minVoltage" value=""><p>What\'s the maximum voltage?</p><input type="text" name="maxVoltage" value=""><p>How long will it take in hours for the DUT to achieve steady state temperatures?</p><input type="text" name="steadyTime" value=""><p>What\'s the voltage range?</p><input type="text" name="voltageRange" value=""><input type="hidden" name="hiddenTestName" value = "2"/></span>',
+    hotStorageVariables: '<span id="hotStorageVariables"><p class="promptForInfo">Tell me more about this hot storage test:</p><p>List any required tooling or fixtures, including part #s in Agile if applicable:</p><textarea name="tooling" class="tooling" cols="25"></textarea><p>What notes or expected results do you have?</p><textarea name="notes" class="notes" cols="25"></textarea><p>What\'s the dwell temperature?</p><input type="text" name="dwellTemp" value=""><p>How long is the dwell time in hours?</p><input type="text" name="dwellTime" value=""><input type="hidden" name="hiddenTestName" value = "3"/></span>',
+    coldStorageVariables: '<span id="coldStorageVariables" ><p class="promptForInfo">Tell me more about this cold storage test:</p> <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p> <textarea name="tooling" class="tooling" cols="25"></textarea> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <p>What\'s the dwell temperature?</p> <input type="text" name="dwellTemp" value=""> <p>How long is the dwell time in hours?</p> <input type="text" name="dwellTime" value=""> <input type="hidden" name="hiddenTestName" value = "4"/> </span>',
+    thermalCycleVariables: '<span id="thermalCycleVariables" > <p class="promptForInfo">Tell me more about this thermal cycling test:</p> <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p> <textarea name="tooling" class="tooling" cols="25"></textarea> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <p>What\'s the minimum temperature?</p> <input type="text" name="minTemp" value=""> <p>What\'s the maximum temperature?</p> <input type="text" name="maxTemp" value=""> <p>How long is the dwell time in hours? (Look at the table in the overview.)</p> <input type="text" name="dwellTime" value=""> <p>How many cycles are there?</p> <input type="text" name="cycles" value=""> <input type="hidden" name="hiddenTestName" value = "5"/> </span>',
+    thermalShockVariables: '<span id="thermalShockVariables"><p class="promptForInfo">Tell me more about this thermal shock test:</p> <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p> <textarea name="tooling" class="tooling" cols="25"></textarea> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <p>What\'s the minimum temperature?</p> <input type="text" name="minTemp" value=""> <p>What\'s the maximum temperature?</p> <input type="text" name="maxTemp" value=""> <p>How long is the dwell time in hours?</p> <input type="text" name="dwellTime" value=""> <p>How many shock events are there?</p> <input type="text" name="shockEvents" value=""> <input type="hidden" name="hiddenTestName" value = "6"/> </span>',
+    enduranceVibrationVariables: '<span id="enduranceVibrationVariables"><p class="promptForInfo">Tell me more about this endurance (survivability) vibration test:</p> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <p>What vibration profile do you want to use?</p> <select name="enduranceProfiles"> <option value="A.1">1A/A.1</option> <option value="A.2">1B/A.2</option> <option value="B.1">2A/B.1</option> <option value="B.2">2B/B.2</option> <option value="C">3/C</option> <option value="D">4/D</option> <option value="E.1">5A/E.1</option> <option value="E.2">5B/E.2</option> <option value="F">6/F</option> <option value="G">7/G</option> <option value="H">8/H</option> <option value="I">9/I</option> <option value="J">10/J</option> <option value="K">11/K</option> <option value="L">12/L</option> </select> <input type="hidden" name="hiddenTestName" value = "7"/> </span>',
+    chemicalExposureVariables: '<span id="chemicalExposureVariables"><p class="promptForInfo">Tell me more about this chemical exposure test:</p> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <input type="hidden" name="hiddenTestName" value = "8"/> </span>',
+    functionalVibrationVariables: '<span id="functionalVibrationVariables"><p class="promptForInfo">Tell me more about this ISTA vibration test:</p> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <input type="hidden" name="hiddenTestName" value = "9"/> </span>',
+    istaDropVariables: '<span id="istaDropVariables"><p class="promptForInfo">Tell me more about this ISTA drop test:</p> <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p> <textarea name="tooling" class="tooling" cols="25"></textarea> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <input type="hidden" name="hiddenTestName" value = "10"/> </span>',
+    transitDropVariables: '<span id="transitDropVariables"><p class="promptForInfo">Tell me more about this drop test:</p> <p>List any required tooling or fixtures, including part #s in Agile if applicable:</p> <textarea name="tooling" class="tooling" cols="25"></textarea> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <input type="hidden" name="hiddenTestName" value = "11"/> </span>',
+    humidityToleranceVariables: '<span id="humidityToleranceVariables"><p class="promptForInfo">Tell me more about this humidity tolerance test:</p> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <p>How many humidity cycles are there?</p> <input type="text" name="cycles" value=""> <p>How long are the humidity cycles in hours?</p> <input type="text" name="cycleTime" value=""> <p>How long is the dwell time in hours?</p> <input type="text" name="dwellTime" value=""> <input type="hidden" name="hiddenTestName" value = "12"/> </span>',
+    corrosionVariables: '<span id="corrosionVariables"><p class="promptForInfo">Tell me more about this accelerated corrosion test:</p> <p>What notes or expected results do you have?</p> <textarea name="notes" class="notes" cols="25"></textarea> <p>For how many days should this test be run?</p> <input type="text" name="days" value=""> <p>How many cycles is that?</p> <input type="text" name="cycles" value=""> <input type="hidden" name="hiddenTestName" value = "13"/></span>'
+  }
+  let testInfoButton = document.querySelector('.testInfoButton');
+  let testForm = '';
+
   function formSubmit()
     {
       if (document.forms[0].tests.value != "userDefined")
       {
-      var selectedTest = document.forms[0].tests.value + "Variables"; // Tell us what test was selected from the drop-down.
+      let selectedTest = document.forms[0].tests.value + "Variables";
+      testForm = document.getElementById(selectedTest);
         if (lastTest != "") // If there was a last test, hide its fields.
         {  
           document.getElementById(lastTest).style.display = 'none';
-          document.querySelector('.testInfoButton').style.display = 'none';
+          testInfoButton.style.display = 'none';
         }
-        lastTest = selectedTest; // Store the selected test in memory as our last test so we can identify it the next time the user clicks "Add test".
-        document.getElementById(selectedTest).style.display = 'block';
-        document.querySelector('.testInfoButton').style.display = 'block';
+        lastTest = selectedTest;
+        if (testForm === null) {
+          testInfoButton.insertAdjacentHTML('beforebegin', htmlAsString[selectedTest]);
+          testForm = document.getElementById(selectedTest);
+        }
+        testForm.style.display = 'block';
+        testInfoButton.style.display = 'block';
       }
-      google.script.run.addNewTest(document.forms[0]);
+      google.script.run.addNewTest(document.forms[0].tests.value);
     }
 
     function submitSpecificTestInformation()
     {
-        var formNames = new Map([["coldSoakVariables", 1], ["hotSoakVariables", 2], ["hotStorageVariables", 3],
-        ["coldStorageVariables", 4], ["thermalCycleVariables", 5], ["thermalShockVariables", 6],
-        ["enduranceVibrationVariables", 7], ["chemicalExposureVariables", 8], ["functionalVibrationVariables", 9],
-        ["istaDropVariables", 10], ["transitDropVariables", 11], ["humidityToleranceVariables", 12], ["corrosionVariables", 13]]);
-        var selectedTest = document.forms[0].tests.value + "Variables";
-        var index = formNames.get(selectedTest);  // Look up the test in the map to get the form index.
-        if ((document.forms[index].hiddenTestName.value != "7" && document.forms[index].hiddenTestName.value != "8" && document.forms[index].hiddenTestName.value != "9" && document.forms[index].hiddenTestName.value != "12" && document.forms[index].hiddenTestName.value != "13") && (document.forms[index].tooling.value == "" || document.forms[index].notes.value == "")) // Check for blank text boxes on forms that have fields for both tooling and notes.
+        let toolingField = testForm.querySelector('.tooling');
+        let noteField = testForm.querySelector('.notes');
+        let limit = 0;
+        let leftBoxBlank = window.alert('Oops, at least one text box is blank! Please fill out every text box before submitting information for this test.');
+
+        if ((toolingField != null) && (toolingField.value == '')) 
         {
-          window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
-          } else if ((document.forms[index].hiddenTestName.value == "7" || document.forms[index].hiddenTestName.value == "8" || document.forms[index].hiddenTestName.value == "9" || document.forms[index].hiddenTestName.value == "12" || document.forms[index].hiddenTestName.value == "13") && document.forms[index].notes.value == "") // Check for blank text boxes on forms that have a field for notes.
-          {
-          window.alert("Oops, you left at least one text box blank! Please fill out every text box before clicking Submit information for this test.");
+          leftBoxBlank;
+          } else if ((noteField != null) && (noteField.value == '')) {
+            leftBoxBlank;
           } else {
-          google.script.run.populateTestSpecificInformation(document.forms[index]) // A form goes in here.
-          document.getElementById(selectedTest).style.display = 'none';
-          document.querySelector('.testInfoButton').style.display = 'none';
-        }
+            limit = testForm.children.length - 1;
+            let storedValues = [];
+            for (let i = 0; i < limit; i++) {
+              if ((testForm.children[i].tagName == 'TEXTAREA') || (testForm.children[i].tagName == 'INPUT')) {
+                storedValues.push((testForm.children[i].value));
+              }
+            }
+            const test = {
+              name: document.forms[0].tests.value + 'Variables',
+              variables: storedValues
+            }
+            google.script.run.populateTestSpecificInformation(test);
+            testForm.style.display = 'none';
+            testInfoButton.style.display = 'none';
+        } 
     }
   </script> 
       </html>
