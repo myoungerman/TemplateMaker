@@ -1,6 +1,6 @@
 # Template Generator
-<b>Background</b><br>
-This is a Google Docs script that generates a test plan for Trimble's components lab based on user input. It's fully functional, but I'd like to update it using ES6. 
+## Background
+This is a Google Apps script I wrote that generates a test plan from user input for Trimble's lab. The user picks what tests to add, then they specify the test variables. When the user submits title page information, the document automatically names itself and stores some general document details in Firebase Database to determine how often the template is used. 
 
 ## Provide Title Page Information
 1. In the toolbar, click Macro, and then click Add Title Page Information. If this is your first time running a script in this document, you'll be prompted to authorize the script. A sidebar will appear.
