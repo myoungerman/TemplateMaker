@@ -10,5 +10,5 @@ This is a Google Apps script I wrote that generates a test plan from user input 
 ## Add a Test and Specify Test Variables
 1. In the toolbar, click Macro, and then click Add Tests. A sidebar will appear.
 2. Select a test from the drop-down, and then click Add Test. The sidebar will prompt you for additional information, and the test will be appended to your document.
-3. Fill out every text field in the sidebar, and then click Submit Information for This Test. The test fields will update using your input.
+3. Fill out every text field in the sidebar (write 'None' if there are no tooling or notes), and then click Submit Information for This Test. The test fields will update using your input.
 ![Adding a test and test information](https://github.com/dorrzun/TemplateMaker/blob/master/Animations/Adding%20a%20test%20and%20test%20information.gif)
